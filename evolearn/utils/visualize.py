@@ -4,36 +4,36 @@ import matplotlib.animation as animation
 
 class Animation:
 
+    """General purpose animation class using matplotlib.
+
+    `Animation` creates an animation object from an arbitrary 3D array.
+
+    # Example
+
+    ```python
+        from evolearn.utils.visualize import Animation
+        import numpy as np
+            
+            
+        world_size, num_frames = 300, 60
+        data = np.random.randn(world_size, world_size, num_frames)
+            
+        anim = Animation(data)
+        anim.animate()
+    ```
+
+    # Input shape
+        numpy array with shape: `(rows, cols, number_of_frames)`.
+
+    # Output
+        matplotlib Artist Animation object instance. 
+            
+    # TODO
+        Update animation save protocols. Include save path definition option.
+
+    """
+
     def __init__(self, data):
-
-        """General purpose animation class using matplotlib.
-
-        `Animation` creates an animation object from an arbitrary 3D array.
-
-        # Example
-
-        ```python
-            from evolearn.utils.visualize import Animation
-            import numpy as np
-            
-            
-            world_size, num_frames = 300, 60
-            data = np.random.randn(world_size, world_size, num_frames)
-            
-            anim = Animation(data)
-            anim.animate()
-        ```
-
-        # Input shape
-            numpy array with shape: `(rows, cols, number_of_frames)`.
-
-        # Output
-            matplotlib Artist Animation object instance. 
-            
-        # TODO
-            Update animation save protocols. Include save path definition option.
-
-        """
 
         self.interval = 50
         self.blit = True
