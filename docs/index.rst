@@ -28,7 +28,8 @@ History
    :maxdepth: 2
 
    contributing
-   authorshistory
+   authors
+   history
 
 Indices and tables
 ==================
