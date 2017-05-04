@@ -4,6 +4,7 @@ import matplotlib.animation as animation
 
 class Animation:
     def __init__(self, data):
+
         """General purpose animation class using matplotlib.
 
         `Animation` creates an animation object from an arbitrary 3D array.
@@ -24,7 +25,6 @@ class Animation:
             
         # TODO
             Update animation save protocols. Include save path definition option.
-
 
         """
 
