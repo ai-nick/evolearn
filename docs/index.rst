@@ -2,26 +2,33 @@ Welcome to evolearn's documentation!
 ======================================
 
 
-Getting Started
----------------
+Basics
+---------
 
 .. toctree::
    :maxdepth: 2
 
    readme
-   intro
    installation
 
 
-Basics
----------------
+Getting Started
+---------
 
 .. toctree::
    :maxdepth: 2
 
-   usage
-   test
-   viz
+   intro
+   getting_started
+
+
+Experiments
+---------
+
+.. toctree::
+   :maxdepth: 2
+
+   experiments
 
 History
 ---------------
