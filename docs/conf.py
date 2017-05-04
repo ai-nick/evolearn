@@ -32,6 +32,8 @@ project_root = os.path.dirname(cwd)
 sys.path.insert(0, project_root)
 
 import evolearn
+import numpy as np
+import matplotlib.pyplot as plt
 
 # -- General configuration ---------------------------------------------
 
