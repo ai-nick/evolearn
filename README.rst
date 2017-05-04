@@ -24,9 +24,6 @@ evolearn is a python neuroevolution framework.
 * Free software: MIT license
 * Documentation: https://evolearn.readthedocs.io.
 
-.. image:: evolearn_logo_basic.png
-    :align: center
-
 
 Features
 --------
