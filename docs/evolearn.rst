@@ -1,9 +1,6 @@
 evolearn package
 ================
 
-Submodules
-----------
-
 evolearn.algorithms module
 --------------------------
 
@@ -44,15 +41,6 @@ evolearn.utils module
 ---------------------
 
 .. automodule:: evolearn.utils.visualize
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: evolearn
     :members:
     :undoc-members:
     :show-inheritance:

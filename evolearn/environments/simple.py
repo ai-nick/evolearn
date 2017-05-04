@@ -1,6 +1,7 @@
 
 import numpy as np
 
+
 class WrappingNutrientWorld:
 
     """Simple wrapped callable nutrient environment.
