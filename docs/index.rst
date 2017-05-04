@@ -21,6 +21,7 @@ Basics
 
    usage
    test
+   viz
 
 History
 ---------------
