@@ -20,6 +20,7 @@ Basics
    :maxdepth: 2
 
    usage
+   test
 
 History
 ---------------

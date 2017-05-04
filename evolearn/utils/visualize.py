@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 
 class Animation:
 
-    """General purpose animation class using matplotlib.
+    """A general purpose animation class using matplotlib.
 
     `Animation` creates an animation object from an arbitrary 3D array.
 
@@ -43,6 +43,10 @@ class Animation:
         self.frames = [[plt.imshow(data[:, :, frame], animated=True)] for frame in range(data.shape[2])]
 
     def animate(self):
+
+        """animate function for actually generating Animation figure from object instance.
+        """
+
         ani = animation.ArtistAnimation(self.fig, self.frames, interval=self.interval, blit=self.blit, repeat_delay=self.repeat_delay)
         plt.axis('off')
 
