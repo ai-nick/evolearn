@@ -11,20 +11,6 @@ class Animation:
     :param data: 3D-array. For example, a single agent's decisions in an environment.
     :type data: np.array
 
-    :Example:
-
-    ```python
-        from evolearn.utils.visualize import Animation
-        import numpy as np
-            
-            
-        world_size, num_frames = 300, 60
-        data = np.random.randn(world_size, world_size, num_frames)
-            
-        anim = Animation(data)
-        anim.animate()
-    ```
-
     """
 
     def __init__(self, data):
@@ -38,7 +24,7 @@ class Animation:
 
     def animate(self):
 
-        """animate function for actually generating Animation figure from object instance.
+        """animate function for actually generating figure from Animation instance.
         """
 
         ani = animation.ArtistAnimation(self.fig, self.frames, interval=self.interval, blit=self.blit, repeat_delay=self.repeat_delay)

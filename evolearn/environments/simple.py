@@ -7,13 +7,6 @@ class WrappingNutrientWorld:
 
     :param visualize: Saves individual frames for visualization. Default False.
     :type visualize: bool
-    
-    :Example:
-    ```python
-    from evolearn.environments.simple import WrappingNutrientWorld
-    
-    env = WrappingNutrientWorld()
-    ```
         
     """
 
