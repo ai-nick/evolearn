@@ -5,16 +5,6 @@ class WrappingNutrientWorld:
 
     """Simple wrapped callable nutrient environment.
 
-    # # Example
-    # 
-    # ```python
-    # 
-    #     from evolearn.environments.simple import WrappingNutrientWorld
-    #     
-    #     env = WrappingNutrientWorld()
-    # 
-    # ```
-
     :param visualize: (bool) Saves individual frames for visualization. Default False.
         
     """
