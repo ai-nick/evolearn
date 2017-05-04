@@ -35,6 +35,24 @@ import evolearn
 
 # -- General configuration ---------------------------------------------
 
+
+
+
+# numpy and matplotlib import test
+from mock import Mock as MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+MOCK_MODULES = [ 'numpy', 'matplotlib' ]
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
+
+
+
+
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
