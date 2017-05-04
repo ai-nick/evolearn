@@ -31,7 +31,7 @@ evolearn.networks module
 evolearn.utils module
 ---------------------
 
-.. automodule:: evolearn.utils.utils
+.. automodule:: evolearn.utils
     :members:
     :undoc-members:
     :show-inheritance:
