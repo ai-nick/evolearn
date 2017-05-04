@@ -10,7 +10,7 @@ Algorithms
 Environments
 -------------
 
-.. include:: ../environments.rst
+.. include:: environments.rst
 
 
 Networks
