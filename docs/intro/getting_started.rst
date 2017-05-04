@@ -4,12 +4,7 @@ Getting Started
 ===============
 
 
-Usage
------
-
-To use evolearn in a project::
-
-    import evolearn
+.. include:: std/usage.rst
 
 
 Overview
@@ -25,7 +20,7 @@ This **Getting Started** section is intended to be an introduction to the **epan
 Training an Agent in a Basic Environment
 ----------------------------------------
 
-.. include:: gs/agentsenv.rst
+.. include:: agentsenv.rst
 
 
 Training a Population in a Basic Environment

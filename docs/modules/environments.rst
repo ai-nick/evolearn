@@ -1,3 +1,0 @@
-
-.. currentmodule:: simple
-.. autofunction:: WrappingNutrientWorld

@@ -8,8 +8,8 @@ Basics
 .. toctree::
    :maxdepth: 2
 
-   readme
-   installation
+   std/readme
+   std/installation
 
 
 Introduction
@@ -18,8 +18,8 @@ Introduction
 .. toctree::
    :maxdepth: 2
 
-   intro
-   getting_started
+   intro/intro
+   intro/getting_started
 
 
 Experiments
@@ -28,7 +28,7 @@ Experiments
 .. toctree::
    :maxdepth: 2
 
-   experiments
+   exps/experiments
 
 Package
 -------
@@ -36,7 +36,7 @@ Package
 .. toctree::
    :maxdepth: 2
 
-   modules/modules
+   evolearn
 
 
 History
@@ -45,9 +45,9 @@ History
 .. toctree::
    :maxdepth: 2
 
-   contributing
-   authors
-   history
+   std/contributing
+   std/authors
+   std/history
 
 Indices and tables
 ==================

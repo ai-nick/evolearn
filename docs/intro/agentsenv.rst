@@ -12,7 +12,7 @@ Third, it is an often unspoken objective in the fields of machine learning and a
 
 
 Agent-Environment Controller Tasks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 Let's say for a moment that it was our goal to find an organism that can effectively move through an evironment and eat enough food to stay alive. Within that goal there are a few important components that can get us started towards modelling an abstract biological organism.
@@ -26,7 +26,7 @@ Since this package will completely revolve around artificial neural networks, it
 Ultimately we will be able to use **epann** on more complex agent-environment controllers, and even simulate controllers that can then be embodied in robotic agents in the real world - but, at least our agent can act as a starting point.
 
 A Simple Task
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 We can design our agent in an environment that resembles the popular reinforcement learning benchmark game Flappy Bird. (a single frame from this task is shown below in **Figure 2.1**)
 
@@ -55,12 +55,12 @@ Figure 2.2. Simple Controller ANN
 
 
 Training an Agent Using Backpropagation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Q-learning via reward feedback signals received with each observation. Backpropagate adjust Q-learning error gradient to update network weights.
 
 
 Training an Agent Using Neuroevolution
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If we intend to apply a genetic algorithm onto a population of our agent's in an attempt to find an effective neural network solution, we are moving into the realm of neuroevolution.
