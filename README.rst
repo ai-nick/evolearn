@@ -52,13 +52,18 @@ Credits
 
 Algorithms used in the library come from the works of Kenneth O. Stanley (UCF), Bruno Olshausen (Redwood Institute), as well as my colleagues at the Machine Perception & Cognitive Robotics Laboratory (FAU), and they will be cited as such when appropriate.
 
-.. [CPPN2007] Stanley, Kenneth O. "Compositional pattern producing networks: A novel abstraction of development." *Genetic programming and evolvable machines* 8.2 (2007): 131-162.)
-.. [ES2012] Risi, Sebastian, and Kenneth O. Stanley. "An enhanced hypercube-based encoding for evolving the placement, density, and connectivity of neurons." *Artificial life* 18.4 (2012): 331-363.)
-
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
+
+References Test
+---------
+
+.. [CPPN2007] Stanley, Kenneth O. "Compositional pattern producing networks: A novel abstraction of development." *Genetic programming and evolvable machines* 8.2 (2007): 131-162.)
+.. [ES2012] Risi, Sebastian, and Kenneth O. Stanley. "An enhanced hypercube-based encoding for evolving the placement, density, and connectivity of neurons." *Artificial life* 18.4 (2012): 331-363.)
+
 
 
 
