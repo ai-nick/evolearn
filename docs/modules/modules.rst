@@ -13,7 +13,7 @@ Environments
 .. toctree::
    :maxdepth: 2
 
-environments
+   environments
 
 
 Networks
