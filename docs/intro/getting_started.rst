@@ -4,7 +4,7 @@ Getting Started
 ===============
 
 
-.. include:: std/usage.rst
+.. include:: usage.rst
 
 
 Overview
