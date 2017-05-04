@@ -31,10 +31,10 @@ evolearn is a python neuroevolution framework.
 Features
 --------
 
-* CPPN Genome Generation
+* CPPN Genome Generation [CPPN2007](Stanley, Kenneth O. "Compositional pattern producing networks: A novel abstraction of development." *Genetic programming and evolvable machines* 8.2 (2007): 131-162.)
 * Execution of HyperNEAT
 * User-defined substrate resolutions
-* Evolutionary substrates
+* Evolutionary substrates[ES2012](Risi, Sebastian, and Kenneth O. Stanley. "An enhanced hypercube-based encoding for evolving the placement, density, and connectivity of neurons." *Artificial life* 18.4 (2012): 331-363.)
 * Simple Nutrient Environment interaction
 * Visualization
 
