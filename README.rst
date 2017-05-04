@@ -28,7 +28,21 @@ evolearn is a python neuroevolution framework.
 Features
 --------
 
-* TODO
+* CPPN Genome Generation
+* Execution of HyperNEAT
+* User-defined substrate resolutions
+* Evolutionary substrates
+* Simple Nutrient Environment interaction
+* Visualization
+
+
+Dependencies
+---------
+
+* Numpy
+* TensorFlow
+* OpenAI Universe
+
 
 Credits
 ---------
@@ -41,11 +55,5 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 
 
-Dependencies
----------
-
-* Numpy
-* TensorFlow
-* OpenAI Universe
 
 
