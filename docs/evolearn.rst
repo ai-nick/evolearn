@@ -7,7 +7,7 @@ Submodules
 evolearn.algorithms module
 --------------------------
 
-.. automodule:: evolearn.algorithms
+.. automodule:: evolearn.algorithms.hyperneat
     :members:
     :undoc-members:
     :show-inheritance:
@@ -20,13 +20,25 @@ evolearn.environments module
     :undoc-members:
     :show-inheritance:
 
-evolearn.networks module
-------------------------
-
-.. automodule:: evolearn.networks
+.. automodule:: evolearn.environments.openai
     :members:
     :undoc-members:
     :show-inheritance:
+
+
+evolearn.structs module
+-----------------------
+
+.. automodule:: evolearn.structs.lists
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: evolearn.structs.networks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 evolearn.utils module
 ---------------------
