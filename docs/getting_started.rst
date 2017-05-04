@@ -1,11 +1,11 @@
 
-=====
+===============
 Getting Started
-=====
+===============
 
 
 Usage
----------
+-----
 
 To use evolearn in a project::
 
@@ -13,7 +13,7 @@ To use evolearn in a project::
 
 
 Overview
----------
+--------
 
 **epann** is a neuroevolution framework for designing artificial life experiments using variants of the HyperNEAT algorithm.
 
@@ -23,12 +23,13 @@ This **Getting Started** section is intended to be an introduction to the **epan
 
 
 Training an Agent in a Basic Environment
----------
+----------------------------------------
 
 .. include:: gs/agentsenv.rst
 
+
 Training a Population in a Basic Environment
----------
+--------------------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 
@@ -40,7 +41,7 @@ Mauris odio urna, eleifend id tortor nec, varius dignissim risus. Interdum et ma
 
 
 Solution Diversity: Neuroevolution via Direct Encodings
----------
+-------------------------------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 
@@ -52,7 +53,7 @@ Mauris odio urna, eleifend id tortor nec, varius dignissim risus. Interdum et ma
 
 
 Solution Diversity: Neuroevolution via Indirect Encodings
----------
+---------------------------------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 

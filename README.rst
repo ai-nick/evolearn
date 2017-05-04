@@ -37,7 +37,7 @@ Features
 
 
 Dependencies
----------
+------------
 
 * Numpy
 * TensorFlow
@@ -45,7 +45,7 @@ Dependencies
 
 
 Credits
----------
+-------
 
 Algorithms used in the library come from the works of Kenneth O. Stanley (UCF), Bruno Olshausen (Redwood Institute), as well as my colleagues at the Machine Perception & Cognitive Robotics Laboratory (FAU), and they will be cited as such when appropriate.
 

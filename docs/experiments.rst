@@ -1,11 +1,11 @@
 
-=====
+===========
 Experiments
-=====
+===========
 
 
 Evolving Controllers with NEAT
----------
+------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 
@@ -16,7 +16,7 @@ Nam vel laoreet nunc. Nam nec justo at odio ultrices accumsan at eu odio. Suspen
 Mauris odio urna, eleifend id tortor nec, varius dignissim risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla vitae dolor velit. Duis fermentum ipsum nec imperdiet porttitor. Aliquam at ex venenatis, iaculis justo in, convallis ipsum. Etiam ut porta lacus, ac mollis neque. Quisque tincidunt odio nec hendrerit sagittis. Praesent pulvinar vitae magna a pulvinar.
 
 Evolving Controllers with HyperNEAT
----------
+-----------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 
@@ -28,7 +28,7 @@ Mauris odio urna, eleifend id tortor nec, varius dignissim risus. Interdum et ma
 
 
 Evolvable Substrates: ES-HyperNEAT
----------
+----------------------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
 

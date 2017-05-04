@@ -1,9 +1,9 @@
 Welcome to evolearn's documentation!
-======================================
+====================================
 
 
 Basics
----------
+------
 
 .. toctree::
    :maxdepth: 2
@@ -13,7 +13,7 @@ Basics
 
 
 Introduction
----------
+------------
 
 .. toctree::
    :maxdepth: 2
@@ -23,7 +23,7 @@ Introduction
 
 
 Experiments
----------
+-----------
 
 .. toctree::
    :maxdepth: 2
@@ -40,7 +40,7 @@ Package
 
 
 History
----------------
+-------
 
 .. toctree::
    :maxdepth: 2

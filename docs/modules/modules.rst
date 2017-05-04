@@ -1,11 +1,11 @@
 evolearn package
-=================
+================
 
 Submodules
 ----------
 
 evolearn.algorithms module
----------------------
+--------------------------
 
 .. automodule:: evolearn.algorithms
     :members:
@@ -13,7 +13,7 @@ evolearn.algorithms module
     :show-inheritance:
 
 evolearn.environments module
------------------------
+----------------------------
 
 .. automodule:: evolearn.environments.simple
     :members:
@@ -21,7 +21,7 @@ evolearn.environments module
     :show-inheritance:
 
 evolearn.networks module
------------------------
+------------------------
 
 .. automodule:: evolearn.networks
     :members:
@@ -29,7 +29,7 @@ evolearn.networks module
     :show-inheritance:
 
 evolearn.utils module
------------------------
+---------------------
 
 .. automodule:: evolearn.utils.visualize
     :members:
