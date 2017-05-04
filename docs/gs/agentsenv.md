@@ -1,9 +1,4 @@
-```python
-s = "Python syntax highlighting"
-print s
-```
 
-# Simulating Organisms that Learn
 
 Biological organisms are intelligent in ways we hope to replicate in machines. There is a tremendous diversity of solutions of intelligence on our planet, and a theory of nervous systems should account for that diversity. A prominent way of thinking about the existence of a particular nervous system is the observation that it exists as a solution that is a product of both learning during the lifetime of that organism, as well as the evolutionary history of previous solutions that led to it. 
 
@@ -16,7 +11,8 @@ Second, because local gradient-based methods often require techniques to prevent
 Third, it is an often unspoken objective in the fields of machine learning and artificial intelligence themselves to search for models that can match and/or outperform the capabilities of biological nervous systems. While it may not be necessary to undergo billions of years of evolution to reach certain solutions in the space of all possible ones, it is a fact that in biology those solutions were reached through exactly that process. Therefore, it is at least worth our attention, when attempting to connect the performance of machine learning models to that of the organisms we study in neuroscience, that global search strategies could very well be responsible for both the level and diversity of intelligent life we see around us. 
 
 
-### Agent-Environment Controller Tasks
+Agent-Environment Controller Tasks
+
 
 Let's say for a moment that it was our goal to find an organism that can effectively move through an evironment and eat enough food to stay alive. Within that goal there are a few important components that can get us started towards modelling an abstract biological organism. 
 

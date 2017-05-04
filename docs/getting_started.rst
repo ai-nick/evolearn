@@ -25,7 +25,7 @@ This **Getting Started** section is intended to be an introduction to the **epan
 Training an Agent in a Basic Environment
 ---------
 
-.. include:: gs/agentsenv.md
+.. include:: gs/agentsenv.rst
 
 Training a Population in a Basic Environment
 ---------
