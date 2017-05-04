@@ -15,7 +15,7 @@ evolearn.algorithms module
 evolearn.environments module
 ----------------------------
 
-.. automodule:: evolearn.environments.simple
+.. automodule:: evolearn.environments
     :members:
     :undoc-members:
     :show-inheritance:

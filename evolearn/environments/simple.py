@@ -9,10 +9,11 @@ class WrappingNutrientWorld:
     :type visualize: bool
     
     :Example:
-    
+    ```python
     from evolearn.environments.simple import WrappingNutrientWorld
     
     env = WrappingNutrientWorld()
+    ```
         
     """
 
