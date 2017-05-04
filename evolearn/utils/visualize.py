@@ -42,16 +42,10 @@ class Animation:
         self.fig = plt.figure()
         self.frames = [[plt.imshow(data[:, :, frame], animated=True)] for frame in range(data.shape[2])]
 
-        # Set up formatting for saving an animation
-        # self.save_animation = True
-        # Writer = animation.writers['ffmpeg']
-        # self.writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
-
     def animate(self):
         ani = animation.ArtistAnimation(self.fig, self.frames, interval=self.interval, blit=self.blit, repeat_delay=self.repeat_delay)
         plt.axis('off')
+
         plt.show()
 
-        # if self.save_animation:
-        #     ani.save('im.mp4', writer=self.writer)
 
