@@ -55,8 +55,6 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 
 
-References
----------
 
 .. [CPPN2007] Stanley, Kenneth O. "Compositional pattern producing networks: A novel abstraction of development." *Genetic programming and evolvable machines* 8.2 (2007): 131-162.)
 .. [ES2012] Risi, Sebastian, and Kenneth O. Stanley. "An enhanced hypercube-based encoding for evolving the placement, density, and connectivity of neurons." *Artificial life* 18.4 (2012): 331-363.)
