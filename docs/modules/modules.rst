@@ -1,4 +1,4 @@
-evolearn modules
+Modules
 ======================================
 
 
@@ -10,7 +10,7 @@ Algorithms
 Environments
 -------------
 
-.. include:: environments.rst
+environments
 
 
 Networks
