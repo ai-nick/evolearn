@@ -35,10 +35,11 @@ Figure 2.1. Example Nutrient Environment
 An agent remains stationary in a column of a grid world, while the world continues to fly by it, updating the values of columns with each time step. The agent in **Figure 2.1** below is black, nutrients in the world are green, and blue pixels indicate the agent's field of view (what the organism can actually see around it).
 
 
-Figure 2.1. Example Nutrient Environment
-
-.. image:: figs/agent.png
+.. figure:: figs/agent.png
     :align: center
+    :figclass: align-center
+
+    Figure 2.1. Example Nutrient Environment
 
 
 While the agent always remains in the same column, it can execute one of three actions at any time based on what it sees in the environment to change its row. It can stay in its current row, or it can move upwards or downwards one row.

@@ -12,7 +12,7 @@ Basics
    installation
 
 
-Getting Started
+Introduction
 ---------
 
 .. toctree::
@@ -29,6 +29,15 @@ Experiments
    :maxdepth: 2
 
    experiments
+
+Package
+-------
+
+.. toctree::
+   :maxdepth: 2
+
+   modules/modules
+
 
 History
 ---------------
