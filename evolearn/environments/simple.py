@@ -10,16 +10,25 @@ class WrappingNutrientWorld:
     # Example
 
     ```python
-        sample = np.random.randn(100, 100, 60)
-        anim = Animation(sample)
-        anim.animate()
+    
+        from evolearn.environments.simple import WrappingNutrientWorld
+        
+        env = WrappingNutrientWorld()
+
     ```
 
     # Input shape
         None.
 
     # Output
+        
         A WrappingNutrientWorld object instance. 
+        
+        ```python
+        
+            <evolearn.environments.simple.WrappingNutrientWorld instance at 0x7fdefbf5eb90>
+
+        ```
 
     """
 
@@ -31,7 +40,7 @@ class WrappingNutrientWorld:
         self.world_size = 100
 
         # Reward parameters
-        self.variable_nutrients = True
+        self.variable_nutrients = False
         self.nutrient_density = .5
         self.metabolic_cost = -0.2
         self.nutrient_value = 3 * -1 * self.metabolic_cost
