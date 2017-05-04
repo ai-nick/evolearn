@@ -5,7 +5,14 @@ class WrappingNutrientWorld:
 
     """Simple wrapped callable nutrient environment.
 
-    :param visualize: (bool) Saves individual frames for visualization. Default False.
+    :param visualize: Saves individual frames for visualization. Default False.
+    :type visualize: bool
+    
+    :Example:
+    
+    from evolearn.environments.simple import WrappingNutrientWorld
+    
+    env = WrappingNutrientWorld()
         
     """
 

@@ -8,7 +8,10 @@ class Animation:
 
     `Animation` creates an animation object from an arbitrary 3D array.
 
-    # Example
+    :param data: 3D-array. For example, a single agent's decisions in an environment.
+    :type data: np.array
+
+    :Example:
 
     ```python
         from evolearn.utils.visualize import Animation
@@ -21,15 +24,6 @@ class Animation:
         anim = Animation(data)
         anim.animate()
     ```
-
-    # Input shape
-        numpy array with shape: `(rows, cols, number_of_frames)`.
-
-    # Output
-        matplotlib Artist Animation object instance. 
-            
-    # TODO
-        Update animation save protocols. Include save path definition option.
 
     """
 
