@@ -3,33 +3,20 @@ import numpy as np
 
 class WrappingNutrientWorld:
 
-    """General purpose animation class using matplotlib.
+    """Simple wrapped callable nutrient environment.
 
-    `WrappingNutrientWorld` creates a wrapped callable nutrient environment.
+    # # Example
+    # 
+    # ```python
+    # 
+    #     from evolearn.environments.simple import WrappingNutrientWorld
+    #     
+    #     env = WrappingNutrientWorld()
+    # 
+    # ```
 
-    # Example
-
-    ```python
-    
-        from evolearn.environments.simple import WrappingNutrientWorld
+    :param visualize: (bool) Saves individual frames for visualization. Default False.
         
-        env = WrappingNutrientWorld()
-
-    ```
-
-    # Input shape
-        None.
-
-    # Output
-        
-        A WrappingNutrientWorld object instance. 
-        
-        ```python
-        
-            <evolearn.environments.simple.WrappingNutrientWorld instance at 0x7fdefbf5eb90>
-
-        ```
-
     """
 
     def __init__(self, visualize=False):
@@ -48,6 +35,8 @@ class WrappingNutrientWorld:
 
     def run(self):
 
+        """Runs the environment for specified number of decisions."""
+
         self.reset()
 
         for decision in range(self.num_decisions):
@@ -55,6 +44,8 @@ class WrappingNutrientWorld:
             self.step()
 
     def reset(self):
+
+        """Complete environment reset."""
 
         # Define a world with a certain nutrient density
         self.world = np.random.rand( self.world_size, self.world_size)
@@ -71,6 +62,8 @@ class WrappingNutrientWorld:
         # self.agent = Agent( self.world, num_decisions, self.world_vals )
 
     def step(self):
+
+        """Single decision in an environment."""
 
         # self.agent.step()
         pass

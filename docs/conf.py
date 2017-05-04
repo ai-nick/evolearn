@@ -33,12 +33,11 @@ sys.path.insert(0, project_root)
 
 import evolearn
 
-# -- General configuration ---------------------------------------------
 
 
+# -- MagicMock for C-dependent module Import Errors ---------------------------------------------
 
 
-# numpy and matplotlib import test
 from mock import Mock as MagicMock
 
 class Mock(MagicMock):
@@ -51,6 +50,7 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
 
+# -- General configuration ---------------------------------------------
 
 
 # If your documentation needs a minimal Sphinx version, state it here.
