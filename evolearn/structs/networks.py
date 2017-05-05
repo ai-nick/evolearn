@@ -7,10 +7,12 @@ import numpy as np
 
 class CPPN:
 
+    """CPPN genome networkx object."""
+
     def __init__(self):
 
         self.num_inputs = 5
-        self.num_outputs = 4
+        self.num_outputs = 1
 
         self.cppn = self.initialize_cppn()
 
