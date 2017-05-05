@@ -40,6 +40,7 @@ Dependencies
 ------------
 
 * Numpy
+* NetworkX
 * TensorFlow
 * OpenAI Universe
 
