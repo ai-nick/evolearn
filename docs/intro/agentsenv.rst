@@ -12,7 +12,7 @@ Third, it is an often unspoken objective in the fields of machine learning and a
 
  **Video test**
 
-..  youtube:: https://www.youtube.com/watch?v=zMsnnH7Tu34
+..  youtube:: zMsnnH7Tu34
 
 
 Agent-Environment Controller Tasks
