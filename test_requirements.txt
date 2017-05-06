@@ -1,1 +1,1 @@
-sphinxcontrib.youtube==0.2.0
+sphinxcontrib.youtube
