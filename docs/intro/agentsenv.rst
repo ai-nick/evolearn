@@ -29,6 +29,8 @@ Since this package will completely revolve around artificial neural networks, it
 
 Ultimately we will be able to use **epann** on more complex agent-environment controllers, and even simulate controllers that can then be embodied in robotic agents in the real world - but, at least our agent can act as a starting point.
 
+Blah, blah, blah commit.
+
 A Simple Task
 ~~~~~~~~~~~~~
 
