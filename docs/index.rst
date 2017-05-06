@@ -43,7 +43,7 @@ History
 -------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    std/contributing
    std/authors
