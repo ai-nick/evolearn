@@ -1,6 +1,8 @@
 Introduction
 ============
 
+This is an introduction to evolearn.
+
 .. toctree::
    :maxdepth: 1
 
