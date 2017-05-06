@@ -10,6 +10,10 @@ Second, because local gradient-based methods often require techniques to prevent
 
 Third, it is an often unspoken objective in the fields of machine learning and artificial intelligence themselves to search for models that can match and/or outperform the capabilities of biological nervous systems. While it may not be necessary to undergo billions of years of evolution to reach certain solutions in the space of all possible ones, it is a fact that in biology those solutions were reached through exactly that process. Therefore, it is at least worth our attention, when attempting to connect the performance of machine learning models to that of the organisms we study in neuroscience, that global search strategies could very well be responsible for both the level and diversity of intelligent life we see around us.
 
+ **Video test**
+
+..  youtube:: q_za_b6haXQ
+
 
 Agent-Environment Controller Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
