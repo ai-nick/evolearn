@@ -1,7 +1,8 @@
 Introduction
 ============
 
-.. include:: installation
+.. toctree::
+   :maxdepth: 1
 
-.. include:: usage
-
+   installation
+   usage
