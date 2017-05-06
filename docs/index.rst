@@ -1,10 +1,7 @@
 Welcome to evolearn's documentation!
 ====================================
 
-.. include:: ../README.rst
-
-Documentation
--------------
+evolearn is a python neuroevolution framework.
 
 .. toctree::
    :maxdepth: 1
@@ -14,12 +11,3 @@ Documentation
    exps/experiments
    evolearn
 
-Credits
--------
-
-.. toctree::
-   :maxdepth: 1
-
-   std/contributing
-   std/authors
-   std/history
