@@ -16,7 +16,7 @@ Introduction
 ------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    intro/intro
    intro/getting_started
