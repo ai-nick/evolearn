@@ -6,7 +6,7 @@ Basics
 ------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    std/readme
    std/installation
