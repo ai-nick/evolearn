@@ -9,6 +9,14 @@ evolearn.algorithms module
     :undoc-members:
     :show-inheritance:
 
+evolearn.analysis module
+------------------------
+
+.. automodule:: evolearn.analysis.neighborjoin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 evolearn.environments module
 ----------------------------
 
