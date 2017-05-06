@@ -62,6 +62,13 @@ class WrappingNutrientWorld:
 
 
 class Recognition:
+
+    """General image recognition object.
+
+    :param visualize: Saves individual frames for visualization. Default False.
+    :type visualize: bool
+
+    """
     def __init__(self):
         pass
 
