@@ -2,23 +2,23 @@ Welcome to evolearn's documentation!
 ====================================
 
 
-Basics
-------
+Introduction
+------------
 
 .. toctree::
    :maxdepth: 1
 
    std/readme
    std/installation
+   std/usage
+   intro/intro
 
-
-Introduction
-------------
+Getting Started
+---------------
 
 .. toctree::
    :maxdepth: 3
 
-   intro/intro
    intro/getting_started
 
 
@@ -29,6 +29,7 @@ Experiments
    :maxdepth: 2
 
    exps/experiments
+
 
 Package
 -------
