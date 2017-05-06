@@ -13,7 +13,7 @@ Training an Agent in a Basic Environment
 Training a Population in a Basic Environment
 --------------------------------------------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam erat risus, luctus eu orci vel, tristique sodales mauris. Mauris sed sem felis. Nullam id egestas dui. Nunc nec quam et nibh congue interdum id a turpis. Praesent a pellentesque risus. Duis cursus dolor velit, sit amet dignissim velit scelerisque non. Duis ante libero, gravida nec urna vitae, lobortis elementum ex. Donec eu vestibulum sapien. Ut quis efficitur dui. Etiam sed aliquam tortor. Praesent ornare id erat a tempor. In hac habitasse platea dictumst. Aliquam condimentum blandit ipsum ac interdum. [1]_
 
 Cras tellus augue, lacinia vitae pharetra quis, gravida nec sem. Proin accumsan metus massa, quis lacinia massa interdum sit amet. In scelerisque tortor in ante mattis, eu sodales ipsum vehicula. Suspendisse eu sodales mi. Etiam pretium dictum eros non consequat. Praesent pretium aliquam nulla. In posuere sagittis diam mollis cursus. Sed dui metus, facilisis varius pharetra nec, auctor quis enim. Maecenas et erat feugiat, rhoncus dolor eget, aliquet nisi. Donec nulla nisi, ornare et rhoncus eget, pharetra sed diam. In volutpat, nunc eu dapibus porttitor, orci erat imperdiet ex, ut porttitor quam tortor ut mi. Duis vitae risus dapibus, convallis tortor vitae, finibus tortor. Morbi pretium urna sed quam fermentum, nec laoreet augue volutpat.
 
@@ -21,6 +21,7 @@ Nam vel laoreet nunc. Nam nec justo at odio ultrices accumsan at eu odio. Suspen
 
 Mauris odio urna, eleifend id tortor nec, varius dignissim risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla vitae dolor velit. Duis fermentum ipsum nec imperdiet porttitor. Aliquam at ex venenatis, iaculis justo in, convallis ipsum. Etiam ut porta lacus, ac mollis neque. Quisque tincidunt odio nec hendrerit sagittis. Praesent pulvinar vitae magna a pulvinar.
 
+.. [1] Footnote test.
 
 Solution Diversity: Neuroevolution via Direct Encodings
 -------------------------------------------------------
