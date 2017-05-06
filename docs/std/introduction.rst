@@ -8,3 +8,4 @@ This is an introduction to evolearn.
 
    installation
    usage
+   intro/getting_started
