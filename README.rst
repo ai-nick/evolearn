@@ -28,10 +28,10 @@ evolearn is a python neuroevolution framework.
 Features
 --------
 
-* CPPN Genome Generation [CPPN2007]_
-* Execution of HyperNEAT [1]_
+* CPPN Genome Generation
+* Execution of HyperNEAT
 * User-defined substrate resolutions
-* Evolutionary substrates [ES2012]_
+* Evolutionary substrates
 * Simple Nutrient Environment interaction
 * Visualization
 
@@ -45,21 +45,7 @@ Dependencies
 * OpenAI Universe
 
 
-Credits
--------
 
-Algorithms used in the library come from the works of Kenneth O. Stanley (UCF), Bruno Olshausen (Redwood Institute), as well as my colleagues at the Machine Perception & Cognitive Robotics Laboratory (FAU), and they will be cited as such when appropriate.
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-
-
-.. [1] Footnote test.
-
-.. [CPPN2007] Stanley, Kenneth O. "Compositional pattern producing networks: A novel abstraction of development." *Genetic programming and evolvable machines* 8.2 (2007): 131-162.)
-.. [ES2012] Risi, Sebastian, and Kenneth O. Stanley. "An enhanced hypercube-based encoding for evolving the placement, density, and connectivity of neurons." *Artificial life* 18.4 (2012): 331-363.)
 
 
 
