@@ -8,3 +8,5 @@ evolearn is a neuroevolution framework for designing artificial life experiments
    :maxdepth: 1
 
    std/introduction
+   intro/getting_started
+   exps/experiments
