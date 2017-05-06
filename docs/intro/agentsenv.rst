@@ -15,7 +15,7 @@ Third, it is an often unspoken objective in the fields of machine learning and a
 
 .. raw:: html
 
-   <video controls src="_vids/horses.mp4"></video>
+   <video controls src="../vids/horses.mp4"></video>
 
 Agent-Environment Controller Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
