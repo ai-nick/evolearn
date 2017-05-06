@@ -12,3 +12,13 @@ Documentation
    std/introduction
    intro/getting_started
    exps/experiments
+
+Credits
+-------
+
+.. toctree::
+   :maxdepth: 1
+
+   std/contributing
+   std/authors
+   std/history
