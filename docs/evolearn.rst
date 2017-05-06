@@ -1,5 +1,5 @@
-evolearn package
-================
+Modules
+=======
 
 evolearn.algorithms module
 --------------------------
