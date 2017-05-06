@@ -12,6 +12,7 @@ Documentation
    std/introduction
    intro/getting_started
    exps/experiments
+   evolearn
 
 Credits
 -------
