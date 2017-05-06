@@ -13,9 +13,8 @@ Third, it is an often unspoken objective in the fields of machine learning and a
 
 **Video test**
 
-.. raw:: html
+..  youtube:: q_za_b6haXQ
 
-   <video controls src="../vids/horses.mp4"></video>
 
 Agent-Environment Controller Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
