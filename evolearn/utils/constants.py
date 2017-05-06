@@ -1,8 +1,6 @@
+class Constants:
 
-
-class List:
-
-    """List test class
+    """Constants test class
 
     :param genome: population of cppn networks.
     :type genome: NaN
