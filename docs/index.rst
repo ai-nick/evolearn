@@ -11,7 +11,6 @@ Introduction
 ------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   std/installation
-   std/usage
+   std/introduction
