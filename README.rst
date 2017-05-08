@@ -39,6 +39,7 @@ Features
 Dependencies
 ------------
 
+* MultiNEAT
 * NetworkX
 * TensorFlow
 * OpenAI Universe

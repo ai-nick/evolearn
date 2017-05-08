@@ -32,9 +32,12 @@ class CPPN:
         cppn = nx.DiGraph()
 
         # Add the nodes
+        cppn.add_nodes_from([ node for node in range(self.num_inputs + self.num_outputs) ])
+
+        # Give each node an initial activation
         activations = self.act_init()
-        print activations
-        cppn.add_nodes_from([ node for node in range(self.num_inputs + self.num_outputs) ], act=activations[node])
+        for node in cppn.node.keys():
+            cppn.node[node] = {'act': activations[node] }
 
         # Add the edges
         connections = list(itertools.product(range(self.num_inputs), range(self.num_inputs, self.num_inputs + self.num_outputs)))
