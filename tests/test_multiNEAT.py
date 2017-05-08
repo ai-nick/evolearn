@@ -10,7 +10,7 @@ sys.path.insert(0, project_root)
 
 # ----- TEST -----
 
-from evolearn.population.population import NEAT
+from evolearn.algorithms.neat import NEAT
 
 pop = NEAT()
 pop.run()

@@ -4,6 +4,13 @@ import MultiNEAT as mneat
 
 class NEAT:
 
+    """NEAT test class
+
+    :param genome: population of cppn networks.
+    :type genome: NaN
+
+    """
+
     def __init__(self, verbose=False):
 
         # Define the NEAT parameters
@@ -11,7 +18,7 @@ class NEAT:
 
         self.params.PopulationSize = 10
 
-        # Define the inputs, outputs of the CPPNs
+        # Define the inputs, outputs of the neural network
         self.num_inputs = 3
         self.num_outputs = 2
 

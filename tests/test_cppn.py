@@ -10,8 +10,7 @@ sys.path.insert(0, project_root)
 
 # ----- TEST -----
 
-from evolearn.structs.networks import CPPN
-import networkx as nx
+from old_ditch import CPPN
 
 agent1 = CPPN()
 agent2 = CPPN()

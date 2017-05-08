@@ -8,5 +8,4 @@ Modules
    algorithms
    analysis
    environments
-   structs
    utils
