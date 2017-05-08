@@ -10,6 +10,6 @@ evolearn is a python neuroevolution framework.
    getting_started/home
    experiments/home
    package/home
-   information/home
+   information_dev/home
 
 
