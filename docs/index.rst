@@ -8,6 +8,8 @@ evolearn is a python neuroevolution framework. Check it out!
 
    introduction/home
    getting_started/home
-   exps/experiments
-   evolearn
+   experiments/home
+   package/home
+   information/home
+
 
