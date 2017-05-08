@@ -1,4 +1,8 @@
 
+from evolearn.utils.visualize import Animation
+from evolearn.utils.activations import Activation
+
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import itertools
@@ -12,7 +16,9 @@ class CPPN:
     def __init__(self):
 
         self.num_inputs = 5
-        self.num_outputs = 1
+        self.num_outputs = 3
+
+        self.acts = Activation()
 
         self.cppn = self.initialize_cppn()
 
@@ -26,13 +32,22 @@ class CPPN:
         cppn = nx.DiGraph()
 
         # Add the nodes
-        cppn.add_nodes_from([ node for node in range(self.num_inputs + self.num_outputs) ])
+        activations = self.act_init()
+        print activations
+        cppn.add_nodes_from([ node for node in range(self.num_inputs + self.num_outputs) ], act=activations[node])
 
         # Add the edges
         connections = list(itertools.product(range(self.num_inputs), range(self.num_inputs, self.num_inputs + self.num_outputs)))
         cppn.add_edges_from([ self.connection_init(connection[0], connection[1]) for connection in connections])
 
         return cppn
+
+    def act_init(self):
+
+        input_acts = [ 'linear' for input in range(self.num_inputs)]
+        output_acts = [ self.acts.tags[ np.random.randint(len(self.acts.tags)) ] for output in range(self.num_outputs) ]
+        acts = input_acts + output_acts
+        return acts
 
     def node_init(self, node):
 
@@ -50,6 +65,9 @@ class CPPN:
 
         return struct
 
+    def connection_list(self):
+        pass
+
     def connection_init(self, out_node, in_node):
 
         struct = (out_node, in_node, {'weight': 0, 'innovation': out_node})
@@ -65,10 +83,10 @@ class CPPN:
         plt.savefig("path.png")
         plt.show()
 
+    def animate(self):
 
-cppn = CPPN()
+        world_size, num_frames = 300, 60
+        data = np.random.randn(world_size, world_size, num_frames)
 
-# print cppn.cppn.__dict__['edge']
-print cppn.cppn.edges()
-print cppn.cppn.edge
-# cppn.visualize()
+        anim = Animation(data)
+        anim.animate()
