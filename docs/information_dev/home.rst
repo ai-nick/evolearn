@@ -9,3 +9,5 @@ Development Information
    contributing
    history
 
+   :ref:`genindex`
+   :ref:`modindex`
