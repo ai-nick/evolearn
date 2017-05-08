@@ -1,6 +1,18 @@
 
-import MultiNEAT as NEAT
+# ----- Update path for test -----
 
-params = NEAT.Parameters()
+import os
+import sys
 
-print params
+cwd = os.getcwd()
+project_root = os.path.dirname(cwd)
+sys.path.insert(0, project_root)
+
+# ----- TEST -----
+
+from evolearn.population.population import NEAT
+
+pop = NEAT()
+pop.run()
+
+
