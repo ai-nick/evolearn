@@ -1,7 +1,7 @@
 Welcome to evolearn's documentation!
 ====================================
 
-evolearn is a python neuroevolution framework. Check it out!
+evolearn is a python neuroevolution framework.
 
 .. toctree::
    :maxdepth: 2
