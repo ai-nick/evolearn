@@ -1,5 +1,6 @@
-
-# ----- Update path for test -----
+###################################
+# ----- Update path for test -----#
+###################################
 
 import os
 import sys
@@ -8,30 +9,40 @@ cwd = os.getcwd()
 project_root = os.path.dirname(cwd)
 sys.path.insert(0, project_root)
 
+###################################
+
 
 # ----- TEST -----
 
-from evolearn.algorithms.neat import NEAT
+from evolearn.experiments.simulations import SimulationNEAT
 from evolearn.utils.visualize import VisualizeNetwork
 
 import MultiNEAT as mneat
 
 
+# Instantiate a Simulation
+sim = SimulationNEAT('NEAT', population_size=300, max_evaluations=1, num_generations=100, verbose=True)
 
-# Build the population
-sim = NEAT(PopulationSize=300, verbose=True)
-
-# Run the experiment
+# Run it
 sim.run()
 
 
 
 
+# # Build the population
+# sim = NEAT(PopulationSize=300)
+#
+# # Run the experiment
+# sim.run()
 
 
+
+
+#
+#
 # Pull out the Best Performer (Leader) Genotype and build its Phenotype
 net = mneat.NeuralNetwork()
-sim.pop.Species[0].GetLeader().BuildPhenotype(net)
+sim.alg.pop.Species[0].GetLeader().BuildPhenotype(net)
 
 # Network characteristics for visualization
 
