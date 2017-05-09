@@ -11,7 +11,7 @@ class NEAT:
 
     """
 
-    def __init__(self, PopulationSize=300, verbose=False):
+    def __init__(self, PopulationSize):
 
         # Define the NEAT parameters
         self.params = mneat.Parameters()
@@ -30,10 +30,16 @@ class NEAT:
         step = 0
         self.pop = mneat.Population(self.genome, self.params, True, 1.0, step)
 
+
+
+
+
         # Simulation parameters
         self.num_generations = 500
 
-        self.verbose = verbose
+    def single_evaluation(self, net, current_input):
+        fitness_update, output, observation = 0, 0, 0
+        return fitness_update, output, observation
 
     def evaluate(self, current_genome, current_input):
 
@@ -76,7 +82,7 @@ class NEAT:
 
         for generation in range(self.num_generations):
 
-            if self.verbose:
-                print '- Generation', generation
+            # if self.verbose:
+            #     print '- Generation', generation
 
             self.single_generation()
