@@ -11,16 +11,16 @@ class NEAT:
 
     """
 
-    def __init__(self, verbose=False):
+    def __init__(self, PopulationSize=300, verbose=False):
 
         # Define the NEAT parameters
         self.params = mneat.Parameters()
 
-        self.params.PopulationSize = 10
+        self.params.PopulationSize = PopulationSize
 
         # Define the inputs, outputs of the neural network
-        self.num_inputs = 3
-        self.num_outputs = 2
+        self.num_inputs = 5
+        self.num_outputs = 1
 
         # Define the genome
         self.genome = mneat.Genome(0, self.num_inputs, 0, self.num_outputs, False, mneat.ActivationFunction.UNSIGNED_SIGMOID,
@@ -31,18 +31,18 @@ class NEAT:
         self.pop = mneat.Population(self.genome, self.params, True, 1.0, step)
 
         # Simulation parameters
-        self.num_generations = 3
+        self.num_generations = 500
 
         self.verbose = verbose
 
-    def evaluate(self, current_genome):
+    def evaluate(self, current_genome, current_input):
 
         # Build the neural network phenotype from the cppn genotype
         net = mneat.NeuralNetwork()
         current_genome.BuildPhenotype(net)
 
         # let's input just one pattern to the net, activate it once and get the output
-        current_input = [1.0, 0.0, 1.0]
+        # current_input = [1.0, 0.0, 1.0]
         net.Input(current_input)
         net.Activate()
         output = net.Output()
@@ -51,7 +51,7 @@ class NEAT:
         # to be the neural network that outputs constantly 0.0 from the first output (the second output is ignored)
 
         fitness = 1.0 - output[0]
-        return fitness
+        return fitness, output
 
     def single_generation(self):
 
@@ -60,8 +60,10 @@ class NEAT:
 
         # apply the evaluation function to all genomes
 
+        current_input = [1.0, 0.0, 1.0]
+
         for current_genome in genome_list:
-            fitness = self.evaluate(current_genome)
+            fitness, output = self.evaluate(current_genome, current_input)
             current_genome.SetFitness(fitness)
 
             # at this point we may output some information regarding the progress of evolution, best fitness, etc. it's also

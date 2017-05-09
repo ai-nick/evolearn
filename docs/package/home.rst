@@ -8,4 +8,5 @@ Modules
    algorithms
    analysis
    environments
+   experiments
    utils
