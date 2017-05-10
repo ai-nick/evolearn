@@ -30,8 +30,7 @@ class SimulationNEAT:
     :param population_size: number of agents in experiment population. (Default=300)
     :type population_size: int
     
-    :param max_evaluations: number of maximum evaluations/decisions an agent can have with the environment. 
-    (Default=100)
+    :param max_evaluations: number of maximum evaluations an agent can have with the environment. (Default=100)
     :type max_evaluations: int
     
     :param num_generations: number of generations of evolution in experiment. (Default=300)
@@ -46,7 +45,7 @@ class SimulationNEAT:
     :param performance_plotting: option to generate performance plots across simulation. (Default=False)
     :type performance_plotting: bool
     
-    :param visualize_leader:
+    :param visualize_leader: option to build a visualization of leading agent in NetworkX. (Default=False)
     :type visualize_leader: bool
     
     """
