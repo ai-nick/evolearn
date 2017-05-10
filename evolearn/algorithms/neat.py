@@ -44,6 +44,7 @@ class NEAT:
 
         """
         Evaluate agent phenotype network on current environment input.
+        
         :param net: agent phenotype network.
         :param current_input: current environment observation.
         :return: network output

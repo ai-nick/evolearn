@@ -8,8 +8,9 @@
 #######################################################
 
 
-from evolearn.algorithms.neat import NEAT
-from evolearn.environments.environment import SimpleEnvironment
+from evolearn.algorithms import neat
+from evolearn.environments import environment_simple
+
 from evolearn.utils.visualize import VisualizeLeader
 
 import MultiNEAT as mneat
@@ -27,7 +28,7 @@ class SimulationNEAT:
 
     """
 
-    def __init__(self, NEAT_flavor='NEAT', environment='SimpleEnvironment', population_size=300,
+    def __init__(self, NEAT_flavor='NEAT', environment_type='SimpleEnvironment', population_size=300,
                  max_evaluations=100, num_generations=300, num_repetitions=1, verbose=False, performance_plotting=False, visualizeLeader=False):
 
         # constants_file.txt?
@@ -36,7 +37,7 @@ class SimulationNEAT:
         ############### ENVIRONMENT ###############
 
         # Define the environment the population with be evaluated on
-        self.env_type = environment
+        self.env_type = environment_type
 
         # Define an Environment class based on the type
         self.env = self.define_environment()
@@ -71,17 +72,6 @@ class SimulationNEAT:
         # Define the algorithm to fit that flavor
         self.alg = self.define_NEAT_flavor()
 
-    def define_NEAT_flavor(self):
-
-        '''Convert NEAT flavor string into NEAT experiment object.
-        
-        :return: NEAT experiment object instance.
-        '''
-
-        if self.NEAT_flavor == 'NEAT':
-            alg = NEAT(self.population_size, self.num_inputs, self.num_outputs)
-
-        return alg
 
     def define_environment(self):
 
@@ -90,10 +80,18 @@ class SimulationNEAT:
         :return: Environment object instance.
         '''
 
-        if self.env_type == 'SimpleEnvironment':
-            environment = SimpleEnvironment()
+        return getattr(environment_simple, self.env_type)()
 
-        return environment
+
+
+    def define_NEAT_flavor(self):
+
+        '''Convert NEAT flavor string into NEAT experiment object.
+
+        :return: NEAT experiment object instance.
+        '''
+
+        return getattr(neat, self.NEAT_flavor)(self.population_size, self.num_inputs, self.num_outputs)
 
 
     def run(self):
@@ -171,24 +169,22 @@ class SimulationNEAT:
         net = mneat.NeuralNetwork()
         current_genome.BuildPhenotype(net)
 
-        # # Construct a DUMMY INPUT - replace with call to environment initial observation
-        # current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
+        # Main Evaluation Loop
 
-        # Evaluation loop - allow for 'quit simulation' bool catch to exit while loop
-        collide, evaluation = 0, 0
+        collide, evaluation = False, 0
+
         while (not collide) and (evaluation < self.max_evaluations):
-        # for evaluation in range(self.max_evaluations):
-
-            # MAKE AN ACTION ON THE ENVIRONMENT WRT CURRENT LOCATION INPUT
 
             # Agent makes a single evaluation on the current_input
             output = self.alg.single_evaluation(net, current_input)
 
-            # Convert network output into relevant action in environment, return next observation, state and break catch
-            observation, state, collide = self.env.step( self.env.reformat_action(output) )
+            # Convert network output into relevant action in the environment
+            action = self.env.reformat_action(output)
 
-            # Dummy fitness update - replaced with environment call/state
-            # reward = 1.0 - output[0]
+            # Return resulting observation, state and collide catch
+            observation, state, collide = self.env.step( action )
+
+            # Fitness update
             fitness += state
 
             evaluation += 1

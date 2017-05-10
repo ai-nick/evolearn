@@ -14,7 +14,7 @@ sys.path.insert(0, project_root)
 
 # ----- TEST CONTROLLER -----
 
-from evolearn.environments.environment import SimpleEnvironment
+from evolearn.environments.environment_simple import SimpleEnvironment
 
 env = SimpleEnvironment()
 
