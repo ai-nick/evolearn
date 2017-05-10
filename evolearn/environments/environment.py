@@ -1,7 +1,12 @@
 
-####################################
-# ----------- evolearn ----------- #
-####################################
+#######################################################
+#   ____  _      ___   _     ____   __    ___   _     #
+#  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ | #
+#  |_|__  \_\/  \_\_/ |_|__ |_|__ /_/--\ |_| \ |_| \| #
+#                                                     #
+#                  Chad Carlson - 2017                #
+#######################################################
+
 
 
 from evolearn.controllers.controller import SimpleAgent
@@ -96,7 +101,7 @@ class SimpleEnvironment:
         Location conversion. Prevents requests for locations that are not pre-allocated.
         
         :param: world positionX or world positionY
-        :return: new world positionX or World positionY
+        :return: new world positionX or world positionY
         
         """
 
@@ -133,7 +138,7 @@ class SimpleEnvironment:
         """
         Collision check to potentially break current agent's evaluation.
         
-        :return: collide boolean 
+        :return: collide Boolean 
         """
 
         if self.walls:
@@ -176,7 +181,7 @@ class SimpleEnvironment:
 
         return self.world[ self.agent.location[0], self.agent.location[1] ]
 
-
+#######################
     def make_observation(self):
 
         """

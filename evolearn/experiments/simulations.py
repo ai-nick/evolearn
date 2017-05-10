@@ -1,12 +1,15 @@
 
-####################################
-# ----------- evolearn ----------- #
-####################################
+#######################################################
+#   ____  _      ___   _     ____   __    ___   _     #
+#  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ | #
+#  |_|__  \_\/  \_\_/ |_|__ |_|__ /_/--\ |_| \ |_| \| #
+#                                                     #
+#                  Chad Carlson - 2017                #
+#######################################################
 
 
 from evolearn.algorithms.neat import NEAT
 from evolearn.environments.environment import SimpleEnvironment
-from evolearn.controllers.controller import SimpleAgent
 from evolearn.utils.visualize import VisualizeLeader
 
 import MultiNEAT as mneat
@@ -30,14 +33,6 @@ class SimulationNEAT:
         # constants_file.txt?
         # Ability to load and read from a constants file for experiment reproduction?
 
-        # ############### AGENT ###############
-        #
-        # # Define the type of controller you want to use to embody a phenotype (environment-specific)
-        # self.agent_type = agent_type
-        #
-        # # Define a Controller class for embodying that phenotype
-        # self.agent = self.define_agent()
-
         ############### ENVIRONMENT ###############
 
         # Define the environment the population with be evaluated on
@@ -45,14 +40,6 @@ class SimulationNEAT:
 
         # Define an Environment class based on the type
         self.env = self.define_environment()
-
-        # ############### AGENT ###############
-        #
-        # # Define the type of controller you want to use to embody a phenotype (environment-specific)
-        # self.agent_type = agent_type
-        #
-        # # Define a Controller class for embodying that phenotype
-        # self.agent = self.define_agent()
 
         ############### SIMULATION ###############
 
@@ -76,7 +63,7 @@ class SimulationNEAT:
         # Visualizing Leader Agent Networks at End of Simulation
         self.visualizeLeader = visualizeLeader
 
-        #### ALGORITHM ####
+        ############### ALGORITHM ###############
 
         # Define the type of experiment (flavor) you are running
         self.NEAT_flavor = NEAT_flavor
@@ -108,16 +95,6 @@ class SimulationNEAT:
 
         return environment
 
-    # def define_agent(self):
-    #
-    #     '''Convert Agent type string into a Controller object.
-    #
-    #     :return: Controller object instance.
-    #     '''
-    #     if self.agent_type == 'SimpleAgent':
-    #         agent = SimpleAgent()
-    #
-    #     return agent
 
     def run(self):
 
@@ -147,10 +124,13 @@ class SimulationNEAT:
 
             VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
 
+
     def single_generation(self):
 
         '''
         Single Generation of a Population on the Task.
+        
+        :return: performance measure (i.e. fitness).
         '''
 
         # Retrieve a list of all genomes in the population
@@ -168,8 +148,6 @@ class SimulationNEAT:
             current_genome.SetFitness(fitness)
 
         self.alg.pop.Epoch()
-
-
 
 
     def evaluate(self, current_genome):

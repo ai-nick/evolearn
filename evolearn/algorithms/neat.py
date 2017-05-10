@@ -1,7 +1,12 @@
 
-####################################
-# ----------- evolearn ----------- #
-####################################
+#######################################################
+#   ____  _      ___   _     ____   __    ___   _     #
+#  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ | #
+#  |_|__  \_\/  \_\_/ |_|__ |_|__ /_/--\ |_| \ |_| \| #
+#                                                     #
+#                  Chad Carlson - 2017                #
+#######################################################
+
 
 
 import MultiNEAT as mneat
@@ -35,63 +40,14 @@ class NEAT:
         step = 0
         self.pop = mneat.Population(self.genome, self.params, True, 1.0, step)
 
-
-
-    # def pop_single_generation(self):
-    #
-    #     '''
-    #     Single Generation of a Population on the Task.
-    #     '''
-    #
-    #     # Retrieve a list of all genomes in the population
-    #     genome_list = mneat.GetGenomeList(self.pop)
-    #
-    #     for current_genome in genome_list:
-    #
-    #         # Evaluate the current genome
-    #         # fitness = self.evaluate(current_genome)
-    #
-    #         fitness = self.pop_evaluate(current_genome)
-    #
-    #         # Reset the current genome's fitness
-    #         current_genome.SetFitness(fitness)
-    #
-    #     self.pop.Epoch()
-
-
-
-
-    # def pop_evaluate(self, current_genome):
-    #
-    #     '''
-    #     Evaluate a single agent phenotype on the task.
-    #     '''
-    #
-    #     # Initialize fitness to keep track for update
-    #     fitness = 0
-    #
-    #     # Build the neural network phenotype from the cppn genotype
-    #     net = mneat.NeuralNetwork()
-    #     current_genome.BuildPhenotype(net)
-    #
-    #     # Construct a dummy input - replace with call to environment initial observation
-    #     current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
-    #
-    #     # Evaluation loop - allow for 'quit simulation' bool catch to exit while loop
-    #     for evaluation in range(self.max_evaluations):
-    #
-    #         # Agent makes a single evaluation on the current_input
-    #         output, current_input = self.single_evaluation(net, current_input)
-    #
-    #         # Dummy fitness update - replaced with environment call/state
-    #         reward = 1.0 - output[0]
-    #         fitness += reward
-    #
-    #     return fitness
-
-
-
     def single_evaluation(self, net, current_input):
+
+        """
+        Evaluate agent phenotype network on current environment input.
+        :param net: agent phenotype network.
+        :param current_input: current environment observation.
+        :return: network output
+        """
 
         net.Input(current_input)
         net.Activate()
@@ -104,7 +60,96 @@ class NEAT:
 
 
 
-    # def evaluate(self, current_genome, current_input):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # def pop_single_generation(self):
+        #
+        #     '''
+        #     Single Generation of a Population on the Task.
+        #     '''
+        #
+        #     # Retrieve a list of all genomes in the population
+        #     genome_list = mneat.GetGenomeList(self.pop)
+        #
+        #     for current_genome in genome_list:
+        #
+        #         # Evaluate the current genome
+        #         # fitness = self.evaluate(current_genome)
+        #
+        #         fitness = self.pop_evaluate(current_genome)
+        #
+        #         # Reset the current genome's fitness
+        #         current_genome.SetFitness(fitness)
+        #
+        #     self.pop.Epoch()
+
+
+
+
+        # def pop_evaluate(self, current_genome):
+        #
+        #     '''
+        #     Evaluate a single agent phenotype on the task.
+        #     '''
+        #
+        #     # Initialize fitness to keep track for update
+        #     fitness = 0
+        #
+        #     # Build the neural network phenotype from the cppn genotype
+        #     net = mneat.NeuralNetwork()
+        #     current_genome.BuildPhenotype(net)
+        #
+        #     # Construct a dummy input - replace with call to environment initial observation
+        #     current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
+        #
+        #     # Evaluation loop - allow for 'quit simulation' bool catch to exit while loop
+        #     for evaluation in range(self.max_evaluations):
+        #
+        #         # Agent makes a single evaluation on the current_input
+        #         output, current_input = self.single_evaluation(net, current_input)
+        #
+        #         # Dummy fitness update - replaced with environment call/state
+        #         reward = 1.0 - output[0]
+        #         fitness += reward
+        #
+        #     return fitness
+
+
+
+
+        # def evaluate(self, current_genome, current_input):
     #
     #     # Build the neural network phenotype from the cppn genotype
     #     net = mneat.NeuralNetwork()
