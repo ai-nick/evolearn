@@ -30,14 +30,15 @@ class SimulationNEAT:
     :param population_size: number of agents in experiment population. (Default=300)
     :type population_size: int
     
-    :param max_evaluations: number of maximum evaluations/decisions an agent can have with the environment. (Default=100)
+    :param max_evaluations: number of maximum evaluations/decisions an agent can have with the environment. 
+    (Default=100)
     :type max_evaluations: int
     
     :param num_generations: number of generations of evolution in experiment. (Default=300)
-    :type : int
+    :type num_generations: int
     
     :param num_repetitions: number of times entire experiment is replicated in a simulation. (Default=1)
-    :type : int
+    :type num_repetitions: int
     
     :param verbose: option for Generation and Repetition print strings during a simulation. (Default=False)
     :type verbose: bool
@@ -101,7 +102,7 @@ class SimulationNEAT:
 
         # Define the algorithm to fit that flavor
 
-        self.alg = self.define_NEAT_flavor()
+        self.alg = self.define_neat_flavor()
 
     def build_phenotype(self, current_genome):
 
@@ -119,27 +120,32 @@ class SimulationNEAT:
 
     def define_environment(self):
 
-        '''Convert environment type string into an Environment object.
-
-        :return: Environment object instance.
-        '''
+        """
+        Construct an Environment object from environment_type string.
+        
+        :return: Environmne object instance. 
+        """
 
         return getattr(environment_simple, self.env_type)()
 
-    def define_NEAT_flavor(self):
+    def define_neat_flavor(self):
 
-        '''Convert NEAT flavor string into NEAT experiment object.
-
-        :return: NEAT experiment object instance.
-        '''
+        """
+        Construct NEAT Algorithm object from neat_flavor string.
+        
+        :return: NEAT Algorithm object instance.
+        """
 
         return getattr(neat, self.NEAT_flavor)(self.population_size, self.num_inputs, self.num_outputs)
 
     def evaluate(self, current_genome):
 
-        '''
-        Evaluate a single agent phenotype on the task.
-        '''
+        """
+        Evaluate a single agent phenotype on the current environment.
+        
+        :param current_genome: current agent genome
+        :return: performance measure
+        """
 
         # Initialize fitness
 
@@ -152,7 +158,7 @@ class SimulationNEAT:
         # Retrieve initial observation from the environment
 
         # observation = self.env.observation
-        current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
+        current_input = np.append(np.random.rand(self.num_inputs - 1,), [1.0])
 
         # Build the agent phenotype
 
@@ -174,7 +180,7 @@ class SimulationNEAT:
 
             # Return resulting observation, state and collide catch
 
-            observation, state, collide = self.env.step( action )
+            observation, state, collide = self.env.step(action)
 
             # Performance Update
 
@@ -223,9 +229,6 @@ class SimulationNEAT:
         #
         #     VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
 
-
-
-
     def single_generation(self):
 
         """
@@ -253,8 +256,3 @@ class SimulationNEAT:
         # Call a new Epoch - runs mutations and crossover, creating the next generation of genomes
 
         self.alg.pop.Epoch()
-
-
-
-
-
