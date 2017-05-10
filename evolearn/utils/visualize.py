@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 import numpy as np
-
+import MultiNEAT as mneat
 import networkx as nx
 
 
@@ -43,18 +43,46 @@ class Animation:
         plt.show()
 
 
-class VisualizeNetwork:
+class VisualizeLeader:
 
-    def __init__(self, nodes, edges, types, num_inputs, num_outputs):
+    def __init__(self, sim, num_inputs, num_outputs, NEAT_flavor):
 
-        self.nodes = nodes
-        self.edges = edges
-        self.types = types
+        self.sim = sim
         self.num_inputs = num_inputs
         self.num_outputs = num_outputs
+        self.NEAT_flavor = NEAT_flavor
+
         self.scale = 5
 
+        self.draw_networkx_NEAT()
+
+    def reformat_sim_info(self):
+
+        # Pull out the Best Performer (Leader) Genotype and build its Phenotype
+        net = mneat.NeuralNetwork()
+        self.sim.pop.Species[0].GetLeader().BuildPhenotype(net)
+
+        # Network characteristics for visualization
+
+        #   - NODES
+        out_node = [net.connections[connection].source_neuron_idx for connection in range(len(net.connections))]
+        in_node = [net.connections[connection].target_neuron_idx for connection in range(len(net.connections))]
+
+        nodes = list(set(out_node + in_node))
+
+        types = [net.neurons[node].type for node in range(len(net.neurons))]
+
+        #   - CONNECTIONS
+        weights = [net.connections[connection].weight for connection in range(len(net.connections))]
+
+        edges = zip(out_node, in_node)
+
+        return nodes, types, edges, weights
+
     def draw_networkx_NEAT(self):
+
+        # Pull node and connection information from the completed simulation
+        self.nodes, self.types, self.edges, self.weights = self.reformat_sim_info()
 
         index = {'input': 0, 'output': 0, 'hidden': 0}
         node_types = {'input': [0, 1, 2], 'output': [4], 'hidden': [3]}
@@ -87,8 +115,23 @@ class VisualizeNetwork:
         # Add the connections
         net.add_edges_from(self.edges)
 
-        nx.draw_networkx(net, pos=locations, node_color='b', font_color='w')
-        plt.axis('off')
+        if self.NEAT_flavor != 'NEAT':
+            plt.subplot(1,2,1)
+            plt.title(self.NEAT_flavor + ' Genotype')
+            nx.draw(net, pos=locations, node_color='b', font_color='w')
+            plt.axis('off')
+
+            plt.subplot(1,2,2)
+            plt.title(self.NEAT_flavor + ' Phenotype')
+            nx.draw(net, pos=locations, node_color='r', font_color='w')
+            plt.axis('off')
+
+        else:
+            plt.title(self.NEAT_flavor + ' Phenotype')
+            nx.draw(net, pos=locations, node_color='r', font_color='w')
+            plt.axis('off')
+
+
         plt.show()
 
 

@@ -29,14 +29,14 @@ class Agent:
         self.agent_value = 2
 
         self.world[ self.location[0], self.location[1]] = self.metabolic_cost
-
-        if self.visualize:
-            self.step_tick = 0
-            self.world[self.location[0], self.location[1]] = self.metabolic_cost
-            self.world_history[:, :, 0] = copy(self.world)
-            FOV = self.define_FOV()
-            self.world_history[ self.location[0], self.location[1], 0 ] = self.agent_value
-            self.world_history[:, :, 1] = copy(self.world)
+        #
+        # if self.visualize:
+        #     self.step_tick = 0
+        #     self.world[self.location[0], self.location[1]] = self.metabolic_cost
+        #     self.world_history[:, :, 0] = copy(self.world)
+        #     FOV = self.define_FOV()
+        #     self.world_history[ self.location[0], self.location[1], 0 ] = self.agent_value
+        #     self.world_history[:, :, 1] = copy(self.world)
 
         self.step_tick = 1
 
