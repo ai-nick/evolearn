@@ -33,7 +33,7 @@ class SimpleAgent:
         Heading conversion. Prevents requests for heading indices that do not exist ( range(4) possible ).
 
         :param heading: original agent.heading
-        :return heading: converted (cyclical) agent.heading
+        :return: converted (cyclical) agent.heading
         """
 
         if heading < 0:
@@ -50,7 +50,7 @@ class SimpleAgent:
 
         """
         
-        :return observation: 
+        :return: observation 
         """
 
         rows = range(self.location[0] - (self.levels_FOV), self.location[0] + (self.levels_FOV + 1))
@@ -74,7 +74,7 @@ class SimpleAgent:
 
         """
 
-        :return FOV_heading: 
+        :return: FOV_heading 
         """
 
         FOV_heading = []
@@ -94,7 +94,7 @@ class SimpleAgent:
     def enforce_wrapping(self, position):
 
         """
-        Location conversion. Prevents requests for locations that are not pre-allocated.
+        Location conversion. Prevents requests for locations that are not accessible in the current environment.
 
         :param position: world positionX or world positionY
         :return: new world positionX or world positionY
@@ -145,10 +145,9 @@ class SimpleAgent:
     def reset(self, world_size):
 
         """
-        Agent Object reset location and heading in environment.
+        Reset agent location and heading in environment.
 
         :param world_size: environment dimensions (square).
-        :return: 
         """
 
         # Save env.world_size globally

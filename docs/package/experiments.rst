@@ -2,7 +2,7 @@
 evolearn.experiments module
 ===========================
 
-.. automodule:: evolearn.environments.simulations
+.. automodule:: evolearn.experiments.simulations
     :members:
     :undoc-members:
     :show-inheritance:

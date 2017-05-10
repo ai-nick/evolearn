@@ -19,6 +19,7 @@ class SimpleEnvironment:
 
     Todo:
         * Allow for the import of txt file for defining maze/track boundaries.
+        * Connect imported boundaries to evaluation loop break collision flag. 
     """
 
     def __init__(self):
@@ -49,6 +50,12 @@ class SimpleEnvironment:
 
 
     def build_actions(self):
+
+        """
+        Builds an accessible dictionary of possible actions to be called with each agent action to provide adjustments for location and heading adjustments. 
+        
+        :return: environment action dict. Indices define position and heading adjustments for a selected action.
+        """
 
         # Position adjustments
         empty_position_adjust = [[0, 0], [0, 0], [0, 0], [0, 0]]
@@ -92,7 +99,7 @@ class SimpleEnvironment:
     def make_observation(self):
         #######################
         """
-        Making an observation in a single step through environment.
+        Making an observation for a single step through environment.
         """
 
         pass
@@ -103,9 +110,8 @@ class SimpleEnvironment:
         #######################
         """
         Update agent location based on selected action.
-
-        :return: None 
         """
+        pass
 
 
 
@@ -153,7 +159,7 @@ class SimpleEnvironment:
     def return_reward(self):
 
         """
-        Reward return for occupied location.
+        Returns reward for agent's current location.
 
         :return: reward/state at agent.location 
         """
@@ -167,6 +173,8 @@ class SimpleEnvironment:
 
         """
         Making a single step through the environment. 
+        
+        :return: next observation, current reward, collision Boolean.
         """
 
         self.update(action)
@@ -186,9 +194,6 @@ class SimpleEnvironment:
 
         """
         Update environment.world with respect possibly consumed nutrients at agent's current location.
-
-        :return: None
-
         """
 
         self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
