@@ -7,6 +7,7 @@ Modules
 
    algorithms
    analysis
+   controllers
    environments
    experiments
    utils

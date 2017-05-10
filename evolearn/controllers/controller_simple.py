@@ -13,6 +13,7 @@ import numpy as np
 
 
 class SimpleAgent:
+
     """
     Simple agent object for interacting with Simple Wrapping Environments.
     """
@@ -32,8 +33,7 @@ class SimpleAgent:
         Heading conversion. Prevents requests for heading indices that do not exist ( range(4) possible ).
 
         :param heading: original agent.heading
-        :return: converted (cyclical) agent.heading
-
+        :return heading: converted (cyclical) agent.heading
         """
 
         if heading < 0:
@@ -48,6 +48,11 @@ class SimpleAgent:
 
     def define_FOV(self):
 
+        """
+        
+        :return observation: 
+        """
+
         rows = range(self.location[0] - (self.levels_FOV), self.location[0] + (self.levels_FOV + 1))
         cols = range(self.location[1] - (self.levels_FOV), self.location[1] + (self.levels_FOV + 1))
 
@@ -60,15 +65,17 @@ class SimpleAgent:
 
         observation = np.array([self.world[point[0], point[1]] for point in final_FOV])
 
-        # if self.visualize:
-        #     self.visualize_FOV(final_FOV)
-
         return observation
 
 
 
 
     def define_FOV_heading(self):
+
+        """
+
+        :return FOV_heading: 
+        """
 
         FOV_heading = []
         r = 2 * self.levels_FOV + 1
@@ -77,17 +84,7 @@ class SimpleAgent:
 
         for l in range(1, self.levels_FOV + 1):
 
-            if not self.heading:  # Heading = 0
-                FOV_heading += range((self.levels_FOV - l) * r, (self.levels_FOV - l + 1) * r, 1)
-
-            elif self.heading == 1:  # Heading = 1
-                FOV_heading += range(r - (self.levels_FOV - l + 1), t, r)
-
-            elif self.heading == 2:  # Heading = 2
-                FOV_heading += range((r - (self.levels_FOV - l)) * r - 1, (self.levels_FOV + l) * r - 1, -1)
-
-            elif self.heading == 3:  # Heading = 3
-                FOV_heading += range(2 * tH + (self.levels_FOV - l), self.levels_FOV - l - 1, -1 * r)
+            FOV_heading += self.heading_row_calc(r, tH, t, l)
 
         return FOV_heading
 
@@ -112,6 +109,35 @@ class SimpleAgent:
             wrapped_position = position
 
         return wrapped_position
+
+
+
+
+
+    def heading_row_calc(self, r, tH, t, l):
+
+        """
+
+        :return output: 
+        """
+
+        if not self.heading:
+
+            output = range((self.levels_FOV - l) * r, (self.levels_FOV - l + 1) * r, 1)
+
+        elif self.heading == 1:
+
+            output = range(r - (self.levels_FOV - l + 1), t, r)
+
+        elif self.heading == 2:
+
+            output = range((r - (self.levels_FOV - l)) * r - 1, (self.levels_FOV + l) * r - 1, -1)
+
+        elif self.heading == 3:
+
+            output = range(2 * tH + (self.levels_FOV - l), self.levels_FOV - l - 1, -1 * r)
+
+        return output
 
 
 

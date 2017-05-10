@@ -6,9 +6,3 @@ evolearn.utils module
     :members:
     :undoc-members:
     :show-inheritance:
-
-.. automodule:: evolearn.utils.constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
