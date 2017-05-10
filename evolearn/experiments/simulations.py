@@ -11,7 +11,7 @@
 from evolearn.algorithms import neat
 from evolearn.environments import environment_simple
 
-from evolearn.utils.visualize import VisualizeLeader
+# from evolearn.utils.visualize import VisualizeLeader
 
 import MultiNEAT as mneat
 import numpy as np
@@ -166,12 +166,12 @@ class SimulationNEAT:
 
                 self.single_generation()
 
-        if self.visualizeLeader:
-
-            if self.verbose:
-                'Visualizing Best Performing Agent...'
-
-            VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
+        # if self.visualizeLeader:
+        #
+        #     if self.verbose:
+        #         'Visualizing Best Performing Agent...'
+        #
+        #     VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
 
 
 
