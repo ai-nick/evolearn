@@ -46,6 +46,8 @@ class SimpleEnvironment:
         # Define Agent object
         self.agent = SimpleAgent()
 
+
+
     def build_actions(self):
 
         # Position adjustments
@@ -66,6 +68,60 @@ class SimpleEnvironment:
         actions[4] = {'heading_adjust': 1, 'position_adjust': empty_position_adjust}
 
         return actions
+
+
+
+    def collision_check(self):
+
+        """
+        Collision check to potentially break current agent's evaluation.
+
+        :return: collide Boolean 
+        """
+
+        if self.walls:
+            if self.world[self.agent.location[0], self.agent.location[1]] > self.nutrient_value:
+                collide = True
+        else:
+            collide = False
+
+        return collide
+
+
+
+    def make_observation(self):
+        #######################
+        """
+        Making an observation in a single step through environment.
+        """
+
+        pass
+
+
+
+    def move_agent(self, action):
+        #######################
+        """
+        Update agent location based on selected action.
+
+        :return: None 
+        """
+
+
+
+    def reformat_action(self, agent_output):
+
+        """
+        Reformat raw network output into environment-specific (or experiment specified) action/class choice.
+
+        :return: reformatted action/class index
+        """
+        action = agent_output.index(max(agent_output))
+
+        return action
+
+
+
 
     def reset(self):
 
@@ -91,41 +147,8 @@ class SimpleEnvironment:
 
         return self.make_observation()
 
-    def collision_check(self):
 
-        """
-        Collision check to potentially break current agent's evaluation.
 
-        :return: collide Boolean 
-        """
-
-        if self.walls:
-            if self.world[self.agent.location[0], self.agent.location[1]] > self.nutrient_value:
-                collide = True
-        else:
-            collide = False
-
-        return collide
-
-    def update(self, action):
-
-        """
-        Update environment.world with respect possibly consumed nutrients at agent's current location.
-
-        :return: None
-
-        """
-
-        self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
-
-    #######################
-    def move_agent(self, action):
-
-        """
-        Update agent location based on selected action.
-
-        :return: None 
-        """
 
     def return_reward(self):
 
@@ -137,25 +160,8 @@ class SimpleEnvironment:
 
         return self.world[self.agent.location[0], self.agent.location[1]]
 
-    #######################
-    def make_observation(self):
 
-        """
-        Making an observation in a single step through environment.
-        """
 
-        pass
-
-    def reformat_action(self, agent_output):
-
-        """
-        Reformat raw network output into environment-specific (or experiment specified) action/class choice.
-
-        :return: reformatted action/class index
-        """
-        action = agent_output.index(max(agent_output))
-
-        return action
 
     def step(self, action):
 
@@ -176,56 +182,19 @@ class SimpleEnvironment:
 
 
 
-        #
-        # def visualize_FOV(self, FOV):
-        #     for receptor in FOV:
-        #         self.world_history[ receptor[0], receptor[1], self.step_tick - 1 ] = 0.75 * self.agent_value
-        #
-        # def act(self, observation):
-        #
-        #     # Execute a random action
-        #     action = self.actions[np.random.randint(self.action_space)]
-        #
-        #     # Update heading
-        #     self.heading = self.cyclical_heading( self.heading + action['heading_adjust'] )
-        #
-        #     # Update location
-        #     self.location[0] = self.enforce_wrapping( self.location[0] + action['position_adjust'][self.heading][0] )
-        #     self.location[1] = self.enforce_wrapping( self.location[1] + action['position_adjust'][self.heading][1] )
-        #
-        #     # Update the cumulative reward for the agent's new location
-        #     self.cumulative_reward += self.world[ self.location[0], self.location[1] ]
-        #
-        # def observe(self):
-        #
-        #     # Define the agent FOV
-        #     observation = self.define_FOV()
-        #
-        #     return observation
-        #
-        # def step(self):
-        #
-        #     if not (self.step_tick > (self.num_decisions - 1)):
-        #
-        #         if not (self.step_tick > (self.num_decisions - 2)) and self.visualize:
-        #
-        #             # Copy the current world to the subsequent frame
-        #             self.world_history[:, :, (self.step_tick + 1)] = copy(self.world)
-        #
-        #         # Perform an observation
-        #         observation = self.observe()
-        #
-        #         # Act on that observation
-        #         self.act(observation)
-        #
-        #         # Remove consumed nutrients
-        #         self.world[self.location[0], self.location[1]] = self.metabolic_cost
-        #
-        #         if self.visualize:
-        #             # Draw the agent onto the world
-        #             self.world_history[self.location[0], self.location[1], self.step_tick] = self.agent_value
-        #
-        #     self.step_tick += 1
+    def update(self, action):
+
+        """
+        Update environment.world with respect possibly consumed nutrients at agent's current location.
+
+        :return: None
+
+        """
+
+        self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
+
+
+
 
 
 class Recognition:

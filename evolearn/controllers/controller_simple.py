@@ -9,6 +9,7 @@
 
 
 import itertools
+import numpy as np
 
 
 class SimpleAgent:
@@ -22,49 +23,15 @@ class SimpleAgent:
         self.levels_FOV = 1
         self.conical_FOV = False
 
-    def reset(self, world_size):
 
-        """
-        Agent Object reset location and heading in environment.
 
-        :param world_size: 
-        :return: 
-        """
-
-        # Save env.world_size globally
-        self.world_size = world_size
-
-        # Restart the agent in the center of the world
-        self.location = [self.world_size / 2, self.world_size / 2]
-
-        # Restart the agent facing upwards
-        self.heading = 0
-
-    def enforce_wrapping(self, position):
-
-        """
-        Location conversion. Prevents requests for locations that are not pre-allocated.
-
-        :param: world positionX or world positionY
-        :return: new world positionX or world positionY
-
-        """
-
-        if position >= self.world_size:
-            wrapped_position = 0
-        elif position < 0:
-            wrapped_position = self.world_size - 1
-        else:
-            wrapped_position = position
-
-        return wrapped_position
 
     def cyclical_heading(self, heading):
 
         """
         Heading conversion. Prevents requests for heading indices that do not exist ( range(4) possible ).
 
-        :param: original agent.heading
+        :param heading: original agent.heading
         :return: converted (cyclical) agent.heading
 
         """
@@ -75,6 +42,9 @@ class SimpleAgent:
             heading = 0
 
         return heading
+
+
+
 
     def define_FOV(self):
 
@@ -90,30 +60,79 @@ class SimpleAgent:
 
         observation = np.array([self.world[point[0], point[1]] for point in final_FOV])
 
-        if self.visualize:
-            self.visualize_FOV(final_FOV)
+        # if self.visualize:
+        #     self.visualize_FOV(final_FOV)
 
         return observation
-        #
-        # def define_FOV_heading(self):
-        #
-        #     FOV_heading = []
-        #     r = 2 * self.levels_FOV + 1
-        #     tH = self.levels_FOV * r
-        #     t = r ** 2
-        #
-        #     for l in range(1, self.levels_FOV + 1):
-        #
-        #         if not self.heading:  # Heading = 0
-        #             FOV_heading += range((self.levels_FOV - l) * r, (self.levels_FOV - l + 1) * r, 1)
-        #
-        #         elif self.heading == 1:  # Heading = 1
-        #             FOV_heading += range(r - (self.levels_FOV - l + 1), t, r)
-        #
-        #         elif self.heading == 2:  # Heading = 2
-        #             FOV_heading += range((r - (self.levels_FOV - l)) * r - 1, (self.levels_FOV + l) * r - 1, -1)
-        #
-        #         elif self.heading == 3:  # Heading = 3
-        #             FOV_heading += range(2 * tH + (self.levels_FOV - l), self.levels_FOV - l - 1, -1 * r)
-        #
-        #     return FOV_heading
+
+
+
+
+    def define_FOV_heading(self):
+
+        FOV_heading = []
+        r = 2 * self.levels_FOV + 1
+        tH = self.levels_FOV * r
+        t = r ** 2
+
+        for l in range(1, self.levels_FOV + 1):
+
+            if not self.heading:  # Heading = 0
+                FOV_heading += range((self.levels_FOV - l) * r, (self.levels_FOV - l + 1) * r, 1)
+
+            elif self.heading == 1:  # Heading = 1
+                FOV_heading += range(r - (self.levels_FOV - l + 1), t, r)
+
+            elif self.heading == 2:  # Heading = 2
+                FOV_heading += range((r - (self.levels_FOV - l)) * r - 1, (self.levels_FOV + l) * r - 1, -1)
+
+            elif self.heading == 3:  # Heading = 3
+                FOV_heading += range(2 * tH + (self.levels_FOV - l), self.levels_FOV - l - 1, -1 * r)
+
+        return FOV_heading
+
+
+
+
+    def enforce_wrapping(self, position):
+
+        """
+        Location conversion. Prevents requests for locations that are not pre-allocated.
+
+        :param position: world positionX or world positionY
+        :return: new world positionX or world positionY
+
+        """
+
+        if position >= self.world_size:
+            wrapped_position = 0
+        elif position < 0:
+            wrapped_position = self.world_size - 1
+        else:
+            wrapped_position = position
+
+        return wrapped_position
+
+
+
+
+    def reset(self, world_size):
+
+        """
+        Agent Object reset location and heading in environment.
+
+        :param world_size: environment dimensions (square).
+        :return: 
+        """
+
+        # Save env.world_size globally
+        self.world_size = world_size
+
+        # Restart the agent in the center of the world
+        self.location = [self.world_size / 2, self.world_size / 2]
+
+        # Restart the agent facing upwards
+        self.heading = 0
+
+
+

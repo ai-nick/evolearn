@@ -50,7 +50,7 @@ class NEAT:
         
         :param net: agent phenotype network.
         :param current_input: current environment observation.
-        :return: network output
+        :return output: network output
         """
 
         net.Input(current_input)

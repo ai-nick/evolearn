@@ -73,6 +73,7 @@ class SimulationNEAT:
         self.alg = self.define_NEAT_flavor()
 
 
+
     def define_environment(self):
 
         '''Convert environment type string into an Environment object.
@@ -93,59 +94,6 @@ class SimulationNEAT:
 
         return getattr(neat, self.NEAT_flavor)(self.population_size, self.num_inputs, self.num_outputs)
 
-
-    def run(self):
-
-        '''
-        Main simulation function.
-        '''
-
-        for repetition in range(self.num_repetitions):
-
-            # Should be able to keep this repetition verbose, but I think there is a generation
-            # verbose built in to be called/passed to
-
-            if self.verbose:
-                print '- Repetition %d:' % (repetition + 1)
-
-            for generation in range(self.num_generations):
-
-                if self.verbose:
-                    print '     - Generation %d:' % (generation + 1)
-
-                self.single_generation()
-
-        if self.visualizeLeader:
-
-            if self.verbose:
-                'Visualizing Best Performing Agent...'
-
-            VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
-
-
-    def single_generation(self):
-
-        '''
-        Single Generation of a Population on the Task.
-        
-        :return: performance measure (i.e. fitness).
-        '''
-
-        # Retrieve a list of all genomes in the population
-        genome_list = mneat.GetGenomeList(self.alg.pop)
-
-        for current_genome in genome_list:
-
-            # Evaluate the current genome
-
-            fitness = self.evaluate(current_genome)
-
-            # fitness = self.alg.pop_evaluate(current_genome)
-
-            # Reset the current genome's fitness
-            current_genome.SetFitness(fitness)
-
-        self.alg.pop.Epoch()
 
 
     def evaluate(self, current_genome):
@@ -190,5 +138,65 @@ class SimulationNEAT:
             evaluation += 1
 
         return fitness
+
+
+
+    def run(self):
+
+        '''
+        Main simulation function.
+        '''
+
+        for repetition in range(self.num_repetitions):
+
+            # Should be able to keep this repetition verbose, but I think there is a generation
+            # verbose built in to be called/passed to
+
+            if self.verbose:
+                print '- Repetition %d:' % (repetition + 1)
+
+            for generation in range(self.num_generations):
+
+                if self.verbose:
+                    print '     - Generation %d:' % (generation + 1)
+
+                self.single_generation()
+
+        if self.visualizeLeader:
+
+            if self.verbose:
+                'Visualizing Best Performing Agent...'
+
+            VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
+
+
+
+
+    def single_generation(self):
+
+        '''
+        Single Generation of a Population on the Task.
+        
+        :return: performance measure (i.e. fitness).
+        '''
+
+        # Retrieve a list of all genomes in the population
+        genome_list = mneat.GetGenomeList(self.alg.pop)
+
+        for current_genome in genome_list:
+
+            # Evaluate the current genome
+
+            fitness = self.evaluate(current_genome)
+
+            # fitness = self.alg.pop_evaluate(current_genome)
+
+            # Reset the current genome's fitness
+            current_genome.SetFitness(fitness)
+
+        self.alg.pop.Epoch()
+
+
+
 
 
