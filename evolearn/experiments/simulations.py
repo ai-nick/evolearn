@@ -74,6 +74,7 @@ class SimulationNEAT:
 
 
 
+
     def define_environment(self):
 
         '''Convert environment type string into an Environment object.
@@ -85,6 +86,7 @@ class SimulationNEAT:
 
 
 
+
     def define_NEAT_flavor(self):
 
         '''Convert NEAT flavor string into NEAT experiment object.
@@ -93,6 +95,7 @@ class SimulationNEAT:
         '''
 
         return getattr(neat, self.NEAT_flavor)(self.population_size, self.num_inputs, self.num_outputs)
+
 
 
 
@@ -138,6 +141,7 @@ class SimulationNEAT:
             evaluation += 1
 
         return fitness
+
 
 
 

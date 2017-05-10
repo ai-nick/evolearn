@@ -17,8 +17,10 @@ class NEAT:
 
     :param PopulationSize: number of agents in the current simulation's population.
     :type PopulationSize: int
+    
     :param num_inputs: environment observation space.
     :type num_inputs: int
+    
     :param num_outputs: environment action space.
     :type num_outputs: int
 
@@ -42,6 +44,9 @@ class NEAT:
         # Define the population
         step = 0
         self.pop = mneat.Population(self.genome, self.params, True, 1.0, step)
+
+
+
 
     def single_evaluation(self, net, current_input):
 
