@@ -10,15 +10,11 @@ class SimpleAgent:
     Simple agent object for interacting with Simple Wrapping Environments.
     """
 
-    def __init__(self, action_space):
+    def __init__(self):
 
-        # Observation parameters
+        # Observation parameters - currently not used
         self.levels_FOV = 1
         self.conical_FOV = False
-
-        # Action parameters
-        self.action_space = action_space
-
 
     def reset(self, world_size):
 

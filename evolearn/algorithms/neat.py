@@ -97,10 +97,7 @@ class NEAT:
         net.Activate()
         output = net.Output()
 
-        new_observation = current_input
-
-        return output, new_observation
-
+        return output
 
 
 

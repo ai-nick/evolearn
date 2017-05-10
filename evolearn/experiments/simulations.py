@@ -24,11 +24,19 @@ class SimulationNEAT:
 
     """
 
-    def __init__(self, NEAT_flavor='NEAT', environment='SimpleEnvironment', agent_type='SimpleAgent', population_size=300,
+    def __init__(self, NEAT_flavor='NEAT', environment='SimpleEnvironment', population_size=300,
                  max_evaluations=100, num_generations=300, num_repetitions=1, verbose=False, performance_plotting=False, visualizeLeader=False):
 
         # constants_file.txt?
         # Ability to load and read from a constants file for experiment reproduction?
+
+        # ############### AGENT ###############
+        #
+        # # Define the type of controller you want to use to embody a phenotype (environment-specific)
+        # self.agent_type = agent_type
+        #
+        # # Define a Controller class for embodying that phenotype
+        # self.agent = self.define_agent()
 
         ############### ENVIRONMENT ###############
 
@@ -38,13 +46,13 @@ class SimulationNEAT:
         # Define an Environment class based on the type
         self.env = self.define_environment()
 
-        ############### AGENT ###############
-
-        # Define the type of controller you want to use to embody a phenotype (environment-specific)
-        self.agent_type = agent_type
-
-        # Define a Controller class for embodying that phenotype
-        self.agent = self.define_agent()
+        # ############### AGENT ###############
+        #
+        # # Define the type of controller you want to use to embody a phenotype (environment-specific)
+        # self.agent_type = agent_type
+        #
+        # # Define a Controller class for embodying that phenotype
+        # self.agent = self.define_agent()
 
         ############### SIMULATION ###############
 
@@ -100,16 +108,16 @@ class SimulationNEAT:
 
         return environment
 
-    def define_agent(self):
-
-        '''Convert Agent type string into a Controller object.
-
-        :return: Controller object instance.
-        '''
-        if self.agent_type == 'SimpleAgent':
-            agent = SimpleAgent(self.env.world_size)
-
-        return agent
+    # def define_agent(self):
+    #
+    #     '''Convert Agent type string into a Controller object.
+    #
+    #     :return: Controller object instance.
+    #     '''
+    #     if self.agent_type == 'SimpleAgent':
+    #         agent = SimpleAgent()
+    #
+    #     return agent
 
     def run(self):
 
@@ -173,24 +181,39 @@ class SimulationNEAT:
         # Initialize fitness to keep track for update
         fitness = 0
 
-        # RESET THE ENVIRONMENT
+        # RESET THE AGENT & ENVIRONMENT
+        self.env.reset()
+        # # Get the initial input
+        # current_input = self.env.observation
+
+        # Construct a DUMMY INPUT - replace with call to environment initial observation
+        current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
 
         # Build the neural network phenotype from the cppn genotype
         net = mneat.NeuralNetwork()
         current_genome.BuildPhenotype(net)
 
-        # Construct a DUMMY INPUT - replace with call to environment initial observation
-        current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
+        # # Construct a DUMMY INPUT - replace with call to environment initial observation
+        # current_input = np.append( np.random.rand(self.num_inputs - 1,), 1.0 )
 
         # Evaluation loop - allow for 'quit simulation' bool catch to exit while loop
-        for evaluation in range(self.max_evaluations):
+        collide, evaluation = 0, 0
+        while (not collide) and (evaluation < self.max_evaluations):
+        # for evaluation in range(self.max_evaluations):
+
+            # MAKE AN ACTION ON THE ENVIRONMENT WRT CURRENT LOCATION INPUT
 
             # Agent makes a single evaluation on the current_input
-            output, current_input = self.alg.single_evaluation(net, current_input)
+            output = self.alg.single_evaluation(net, current_input)
+
+            # Convert network output into relevant action in environment, return next observation, state and break catch
+            observation, state, collide = self.env.step( self.env.reformat_action(output) )
 
             # Dummy fitness update - replaced with environment call/state
-            reward = 1.0 - output[0]
-            fitness += reward
+            # reward = 1.0 - output[0]
+            fitness += state
+
+            evaluation += 1
 
         return fitness
 
