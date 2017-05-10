@@ -18,7 +18,7 @@ from evolearn.experiments.simulations import SimulationNEAT
 
 
 # Instantiate a Simulation
-sim = SimulationNEAT('NEAT', population_size=250, max_evaluations=5, num_generations=100, verbose=True, visualizeLeader=True)
+sim = SimulationNEAT('NEAT', population_size=250, max_evaluations=5, num_generations=100)
 
 # Run it
 sim.run()

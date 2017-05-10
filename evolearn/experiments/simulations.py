@@ -11,6 +11,7 @@
 from evolearn.algorithms import neat
 from evolearn.environments import environment_simple
 # from evolearn.utils.visualize import VisualizeLeader
+
 import MultiNEAT as mneat
 import numpy as np
 
@@ -30,16 +31,16 @@ class SimulationNEAT:
     :param population_size: number of agents in experiment population. (Default=300)
     :type population_size: int
     
-    :param max_evaluations: number of maximum evaluations an agent can have with the environment. (Default=100)
+    :param max_evaluations: number of maximum evaluations an agent can have with the environment. (Default=5)
     :type max_evaluations: int
     
-    :param num_generations: number of generations of evolution in experiment. (Default=300)
+    :param num_generations: number of generations of evolution in experiment. (Default=100)
     :type num_generations: int
     
     :param num_repetitions: number of times entire experiment is replicated in a simulation. (Default=1)
     :type num_repetitions: int
     
-    :param verbose: option for Generation and Repetition print strings during a simulation. (Default=False)
+    :param verbose: option for Generation and Repetition print strings during a simulation. (Default=True)
     :type verbose: bool
     
     :param performance_plotting: option to generate performance plots across simulation. (Default=False)
@@ -50,9 +51,9 @@ class SimulationNEAT:
     
     """
 
-    def __init__(self, neat_flavor='NEAT', environment_type='SimpleEnvironment',
-                 population_size=300, max_evaluations=100, num_generations=300,
-                 num_repetitions=1, verbose=False, performance_plotting=False,
+    def __init__(self, neat_flavor, environment_type='SimpleEnvironment',
+                 population_size=300, max_evaluations=5, num_generations=100,
+                 num_repetitions=1, verbose=True, performance_plotting=False,
                  visualize_leader=False):
 
         # -------------------- CONSTANTS --------------------

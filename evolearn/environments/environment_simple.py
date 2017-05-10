@@ -14,6 +14,7 @@ import numpy as np
 
 
 class SimpleEnvironment:
+
     """
     Simple wrapped callable nutrient environment.
 
@@ -26,6 +27,7 @@ class SimpleEnvironment:
 
         # Environment parameters
         self.world_size = 100
+        self.world = np.zeros((self.world_size, self.world_size))
         self.walls = False
 
         # Reward parameters
@@ -45,14 +47,13 @@ class SimpleEnvironment:
         self.actions = self.build_actions()
 
         # Define Agent object
-        self.agent = SimpleAgent()
-
-
+        self.agent = SimpleAgent(self.world_size)
 
     def build_actions(self):
 
         """
-        Builds an accessible dictionary of possible actions to be called with each agent action to provide adjustments for location and heading adjustments. 
+        Builds an accessible dictionary of possible actions to be called with each agent action to provide adjustments
+        for location and heading adjustments. 
         
         :return: environment action dict. Indices define position and heading adjustments for a selected action.
         """
@@ -63,20 +64,17 @@ class SimpleEnvironment:
         diagonal_right = [[-1, 1], [1, 1], [1, -1], [-1, -1]]
         diagonal_left = [[-1, -1], [-1, 1], [1, 1], [1, -1]]
 
-        actions = {}
+        # Build possible actions with position and heading changes
 
-        # Position changes
-        actions[0] = {'heading_adjust': 0, 'position_adjust': straight}
-        actions[1] = {'heading_adjust': 0, 'position_adjust': diagonal_right}
-        actions[2] = {'heading_adjust': 0, 'position_adjust': diagonal_left}
-
-        # Heading changes
-        actions[3] = {'heading_adjust': -1, 'position_adjust': empty_position_adjust}
-        actions[4] = {'heading_adjust': 1, 'position_adjust': empty_position_adjust}
+        actions = {
+            0: {'heading_adjust': 0, 'position_adjust': straight},
+            1: {'heading_adjust': 0, 'position_adjust': diagonal_right},
+            2: {'heading_adjust': 0, 'position_adjust': diagonal_left},
+            3: {'heading_adjust': -1, 'position_adjust': empty_position_adjust},
+            4: {'heading_adjust': 1, 'position_adjust': empty_position_adjust}
+        }
 
         return actions
-
-
 
     def collision_check(self):
 
@@ -86,15 +84,15 @@ class SimpleEnvironment:
         :return: collide Boolean 
         """
 
+        collide = False
+
         if self.walls:
+
             if self.world[self.agent.location[0], self.agent.location[1]] > self.nutrient_value:
+
                 collide = True
-        else:
-            collide = False
 
         return collide
-
-
 
     def make_observation(self):
         #######################
@@ -104,16 +102,12 @@ class SimpleEnvironment:
 
         pass
 
-
-
     def move_agent(self, action):
         #######################
         """
         Update agent location based on selected action.
         """
         pass
-
-
 
     def reformat_action(self, agent_output):
 
@@ -125,9 +119,6 @@ class SimpleEnvironment:
         action = agent_output.index(max(agent_output))
 
         return action
-
-
-
 
     def reset(self):
 
@@ -149,12 +140,11 @@ class SimpleEnvironment:
         self.world[self.world == 0] = self.metabolic_cost
 
         # Initialize your agent
-        self.agent.reset(self.world_size)
+        self.agent.reset()
+
+        # Return an initial observation at the agent's current location
 
         return self.make_observation()
-
-
-
 
     def return_reward(self):
 
@@ -165,9 +155,6 @@ class SimpleEnvironment:
         """
 
         return self.world[self.agent.location[0], self.agent.location[1]]
-
-
-
 
     def step(self, action):
 
@@ -187,9 +174,6 @@ class SimpleEnvironment:
 
         return observation, state, collide
 
-
-
-
     def update(self, action):
 
         """
@@ -199,9 +183,6 @@ class SimpleEnvironment:
         self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
 
 
-
-
-
 class Recognition:
     """
     General image recognition object.
@@ -209,4 +190,3 @@ class Recognition:
 
     def __init__(self):
         pass
-
