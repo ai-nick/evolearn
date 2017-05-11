@@ -119,6 +119,9 @@ class SimulationNEAT:
 
         :param current_genome: current agent genome
         :return: performance measure
+        
+        Todo:
+            * This should also be moved to the NEAT module
         """
 
         # -------------------- ENVIRONMENT --------------------
@@ -169,110 +172,4 @@ class SimulationNEAT:
 
     def run(self):
 
-        """
-        Main simulation function.
-        """
-
-        # -------------------- MAIN EXPERIMENT --------------------
-
-        # Main Repetition Loop
-
-        for repetition in range(self.num_repetitions):
-
-            if self.verbose:
-
-                print '\n- Repetition %d:' % (repetition + 1)
-
-            # Main Generation Loop
-
-            max = np.zeros((self.num_generations, ))
-            min = np.zeros((self.num_generations, ))
-            avg = np.zeros((self.num_generations, ))
-            dev = np.zeros((self.num_generations, ))
-            num_species = np.zeros((self.num_generations, ))
-
-            for generation in range(self.num_generations):
-
-                if self.verbose:
-
-                    print '\n     * Generation %d of %d:' % (generation + 1, self.num_generations)
-
-                # Perform a single generation
-
-                stats, species_leaders = self.alg.single_generation()
-
-
-                max[generation], min[generation], avg[generation], dev[generation], num_species[generation] = stats['Max'], stats['Min'], stats['Mean'], stats['STD'], len(species_leaders)
-
-                if self.verbose:
-
-                    print '         > Species IDs: '
-
-                    print '             - Generation Stats:', stats
-                    print '             - Species Leaders:', species_leaders
-
-
-
-        # -------------------- PERFORMANCE PLOTTING --------------------
-
-        if self.performance_plotting:
-
-            x = range(self.num_generations)
-
-            # plt.subplot(121)
-            # plt.errorbar(x, avg, yerr=dev)
-            plt.plot(x, avg, 'g', label='Average Fit')
-            plt.plot(x, min, 'b', label='Min Fit')
-            plt.plot(x, max, 'r', label='Max Fit')
-            plt.plot(x, num_species, 'k', label='Number of Species')
-
-            density = self.env.nutrient_density * 100
-
-            title = 'Nut Density %:' + str(density) + ', Variable Nut: ' + str(self.env.variable_nutrients) +', Pop Size:' + str(self.population_size) + ', Max Evals:' + str(self.max_evaluations) + ', Num Gens:' + str(self.num_generations)
-
-            plt.title(title)
-            plt.legend(loc='upper left')
-            plt.xlabel('Generation')
-            plt.ylabel('Performance/Fitness')
-
-            # plt.subplot(122)
-            #
-            # plt.bar(x, num_species)
-            # plt.xlabel('Generation')
-            # plt.ylabel('Number of Species')
-
-            plt.show()
-
-        # -------------------- LEADER VISUALIZATION --------------------
-
-        if self.visualize_leader:
-
-            if self.verbose:
-
-                print '\n- Visualizing Best Performing Agent...'
-
-            VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.neat_flavor)
-
-        # -------------------- LEADER ANIMATION --------------------
-
-        if self.animate_leader:
-
-            if self.verbose:
-
-                print '\n- Animating Best Performing Agent...'
-
-            # Pull out the Best Performer (Leader) Genotype and build its Phenotype
-
-            net = mneat.NeuralNetwork()
-            self.alg.pop.Species[0].GetLeader().BuildPhenotype(net)
-
-            if self.verbose:
-
-                print '     * Species best performer Fitness in New Simulation:', self.evaluate_agent_for_visualization(net, 20 * self.max_evaluations)
-
-
-            # Animate the thing
-
-            leader_viz = Animation(self.leader_world)
-            leader_viz.animate()
-
+        self.alg.run(self.num_repetitions, self.num_generations, self.verbose, self.performance_plotting)

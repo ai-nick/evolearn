@@ -11,6 +11,7 @@ from evolearn.algorithms.neat_substrates import Substrate
 
 import MultiNEAT as mneat
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class ESHyperNEAT:
@@ -30,6 +31,57 @@ class HyperNEAT:
         self.substrate_type = 'simple'
         substrate_coords = Substrate(self.substrate_type)
         self.substrate = mneat.Substrate(substrate_coords[0])
+
+        self.params = mneat.Parameters()
+
+        self.params.PopulationSize = 150
+
+        self.params.DynamicCompatibility = True
+        self.params.CompatTreshold = 2.0
+        self.params.YoungAgeTreshold = 15
+        self.params.SpeciesMaxStagnation = 100
+        self.params.OldAgeTreshold = 35
+        self.params.MinSpecies = 5
+        self.params.MaxSpecies = 10
+        self.params.RouletteWheelSelection = False
+
+        self.params.MutateRemLinkProb = 0.02
+        self.params.RecurrentProb = 0
+        self.params.OverallMutationRate = 0.15
+        self.params.MutateAddLinkProb = 0.08
+        self.params.MutateAddNeuronProb = 0.01
+        self.params.MutateWeightsProb = 0.90
+        self.params.MaxWeight = 8.0
+        self.params.WeightMutationMaxPower = 0.2
+        self.params.WeightReplacementMaxPower = 1.0
+
+        self.params.MutateActivationAProb = 0.0
+        self.params.ActivationAMutationMaxPower = 0.5
+        self.params.MinActivationA = 0.05
+        self.params.MaxActivationA = 6.0
+
+        self.params.MutateNeuronActivationTypeProb = 0.03
+
+        self.params.ActivationFunction_SignedSigmoid_Prob = 0.0
+        self.params.ActivationFunction_UnsignedSigmoid_Prob = 0.0
+        self.params.ActivationFunction_Tanh_Prob = 1.0
+        self.params.ActivationFunction_TanhCubic_Prob = 0.0
+        self.params.ActivationFunction_SignedStep_Prob = 1.0
+        self.params.ActivationFunction_UnsignedStep_Prob = 0.0
+        self.params.ActivationFunction_SignedGauss_Prob = 1.0
+        self.params.ActivationFunction_UnsignedGauss_Prob = 0.0
+        self.params.ActivationFunction_Abs_Prob = 0.0
+        self.params.ActivationFunction_SignedSine_Prob = 1.0
+        self.params.ActivationFunction_UnsignedSine_Prob = 0.0
+        self.params.ActivationFunction_Linear_Prob = 1.0
+
+        self.params.AllowLoops = False
+
+        self.genome = mneat.Genome(0, self.substrate.GetMinCPPNInputs(), 0, self.substrate.GetMaxCPPNInputs(), False,
+                                   mneat.ActivationFunction.TANH, mneat.ActivationFunction.TANH, 0, self.params)
+
+        run = 0
+        self.pop = mneat.Population(self.genome, self.params, True, 1.0, run)
 
 class NEAT:
 
@@ -60,10 +112,6 @@ class NEAT:
         # Define the genome
         self.genome = mneat.Genome(0, self.num_inputs, 0, self.num_outputs, False, mneat.ActivationFunction.UNSIGNED_SIGMOID,
                                 mneat.ActivationFunction.UNSIGNED_SIGMOID, 0, self.params)
-
-        # Define the population
-        step = 0
-        self.pop = mneat.Population(self.genome, self.params, True, 1.0, step)
 
         self.env = environment
         self.max_evaluations = max_evaluations
@@ -189,3 +237,115 @@ class NEAT:
         self.pop.Epoch()
 
         return stats, species_leaders
+
+    def run(self, num_repetitions, num_generations, verbose, performance_plotting):
+
+        """
+        Main simulation function.
+        """
+
+        # -------------------- MAIN EXPERIMENT --------------------
+
+        # Main Repetition Loop
+
+        for repetition in range(num_repetitions):
+
+            if verbose:
+
+                print '\n- Repetition %d:' % (repetition + 1)
+
+            # Main Generation Loop
+
+            max = np.zeros((num_generations, ))
+            min = np.zeros((num_generations, ))
+            avg = np.zeros((num_generations, ))
+            dev = np.zeros((num_generations, ))
+            num_species = np.zeros((num_generations, ))
+
+            # Define a Population for the current repetition
+
+            self.pop = mneat.Population(self.genome, self.params, True, 1.0, repetition)
+
+            for generation in range(num_generations):
+
+                if verbose:
+
+                    print '\n     * Generation %d of %d:' % (generation + 1, num_generations)
+
+
+                # Perform a single generation on the population
+
+                stats, species_leaders = self.single_generation()
+
+
+                max[generation], min[generation], avg[generation], dev[generation], num_species[generation] = stats['Max'], stats['Min'], stats['Mean'], stats['STD'], len(species_leaders)
+
+                if verbose:
+
+                    print '         > Generation Stas:', stats
+                    print '         > Species Leaders:', species_leaders
+
+        #
+        #
+        # -------------------- PERFORMANCE PLOTTING --------------------
+        # It would be better if these were placed into parameters of a 'Results' Object, which could then be passed to Visualize and Animate
+        # It would make this module much less messy, save variable inputs for run function, and allow Results to be built for whichever flavor
+        #   of NEAT is currently in use.
+
+            if performance_plotting:
+
+                x = range(num_generations)
+
+                plt.subplot(1, num_repetitions, repetition + 1)
+                # plt.errorbar(x, avg, yerr=dev)
+                plt.plot(x, avg, 'g', label='Average Fit')
+                plt.plot(x, min, 'b', label='Min Fit')
+                plt.plot(x, max, 'r', label='Max Fit')
+                plt.plot(x, num_species, 'k', label='Number of Species')
+
+                density = self.env.nutrient_density * 100
+
+                title = 'Nut Density %:' + str(density) + ', Variable Nut: ' + str(self.env.variable_nutrients) +', Pop Size:' + str(self.params.PopulationSize) + ', Max Evals:' + str(self.max_evaluations) + ', Num Gens:' + str(num_generations)
+
+                plt.title(title)
+                plt.legend(loc='upper left')
+                plt.xlabel('Generation')
+                plt.ylabel('Performance/Fitness')
+
+        if performance_plotting:
+            # In the case of many repetitions, the plots should be a choice of averages between runs or specific runs
+            plt.show()
+        #
+        # # -------------------- LEADER VISUALIZATION --------------------
+        #
+        # if self.visualize_leader:
+        #
+        #     if self.verbose:
+        #
+        #         print '\n- Visualizing Best Performing Agent...'
+        #
+        #     VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.neat_flavor)
+        #
+        # # -------------------- LEADER ANIMATION --------------------
+        #
+        # if self.animate_leader:
+        #
+        #     if self.verbose:
+        #
+        #         print '\n- Animating Best Performing Agent...'
+        #
+        #     # Pull out the Best Performer (Leader) Genotype and build its Phenotype
+        #
+        #     net = mneat.NeuralNetwork()
+        #     self.alg.pop.Species[0].GetLeader().BuildPhenotype(net)
+        #
+        #     if self.verbose:
+        #
+        #         print '     * Species best performer Fitness in New Simulation:', self.evaluate_agent_for_visualization(net, 20 * self.max_evaluations)
+        #
+        #
+        #     # Animate the thing
+        #
+        #     leader_viz = Animation(self.leader_world)
+        #     leader_viz.animate()
+
