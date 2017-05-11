@@ -10,9 +10,10 @@
 
 from evolearn.algorithms import neat
 from evolearn.environments import environment_simple
-from evolearn.utils.visualize import VisualizeLeader
+from evolearn.utils.visualize import VisualizeLeader, Animation
 
 import MultiNEAT as mneat
+from copy import copy
 import numpy as np
 
 
@@ -59,6 +60,12 @@ class SimulationNEAT:
         # Visualizing Leader Agent Networks at End of Simulation
 
         self.visualize_leader = parameters.values['visualize_leader']
+
+        # Animating Leader Agent Behavior at End of Simulation
+
+        self.animate_leader = parameters.values['animate_leader']
+        self.leader_world = {}
+        self.agent_value = self.env.agent_value
 
         # -------------------- ALGORITHM --------------------
 
@@ -118,7 +125,6 @@ class SimulationNEAT:
         # Reset environment and retrieve initial observation
 
         observation = self.env.reset()
-        current_input = np.append(np.random.rand(self.num_inputs - 1,), [1.0])  # DUMMY INPUT
 
         # -------------------- AGENT --------------------
 
@@ -138,7 +144,62 @@ class SimulationNEAT:
 
             # Single evaluation on current input
 
-            output = self.alg.single_evaluation(net, current_input)
+            output = self.alg.single_evaluation(net, observation)
+
+            # Convert network output into relevant action in the environment
+
+            action = self.env.reformat_action(output)
+
+            # Return resulting observation, state and collide catch
+
+            observation, state, collide = self.env.step(action)
+
+            # Performance Update
+
+            fitness += state
+
+            # Evaluation Loop Step
+
+            evaluation += 1
+
+        return fitness
+
+    def evaluate_agent_for_visualization(self, net, test_evaluations):
+
+        """
+        Evaluate a single agent phenotype on the current environment specifically for visualization
+
+        :param current_genome: current agent genome
+        :return: performance measure
+        """
+
+        # -------------------- ENVIRONMENT --------------------
+
+        # Reset environment and retrieve initial observation
+
+        observation = self.env.reset()
+
+        # -------------------- EVALUATE AGENT --------------------
+
+        # Initialize evaluation loop variables
+
+        collide, evaluation, fitness = False, 0, 0
+
+        # Main Evaluation Loop
+
+        while (not collide) and (evaluation < test_evaluations):
+
+            # Build visualization array for current evaluation
+
+            self.leader_world[evaluation] = copy(self.env.world)
+
+            # Place the agent into current visualization array
+
+            self.leader_world[evaluation][self.env.agent.location[0], self.env.agent.location[1]] = self.agent_value
+
+            # Single evaluation on current input
+
+            output = self.alg.single_evaluation(net, observation)
 
             # Convert network output into relevant action in the environment
 
@@ -172,7 +233,7 @@ class SimulationNEAT:
 
             if self.verbose:
 
-                print '- Repetition %d:' % (repetition + 1)
+                print '\n- Repetition %d:' % (repetition + 1)
 
             # Main Generation Loop
 
@@ -180,20 +241,47 @@ class SimulationNEAT:
 
                 if self.verbose:
 
-                    print '     - Generation %d of %d:' % (generation + 1, self.num_generations)
+                    print '     * Generation %d of %d:' % (generation + 1, self.num_generations)
 
                 # Perform a single generation
 
                 self.single_generation()
+
+                if self.verbose:
+
+                    print '         > Species: ', self.alg.pop.Species
 
         # -------------------- LEADER VISUALIZATION --------------------
 
         if self.visualize_leader:
 
             if self.verbose:
-                'Visualizing Best Performing Agent...'
+
+                print '\n- Visualizing Best Performing Agent...'
 
             VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.neat_flavor)
+
+        # -------------------- LEADER ANIMATION --------------------
+
+        if self.animate_leader:
+
+            if self.verbose:
+
+                print '\n- Animating Best Performing Agent...'
+
+            # Pull out the Best Performer (Leader) Genotype and build its Phenotype
+
+            net = mneat.NeuralNetwork()
+            self.alg.pop.Species[0].GetLeader().BuildPhenotype(net)
+
+            if self.verbose:
+
+                print '     * Species best performer Fitness in New Simulation:', self.evaluate_agent_for_visualization(net, 10 * self.max_evaluations)
+
+            # Animate the thing
+
+            leader_viz = Animation(self.leader_world)
+            leader_viz.animate()
 
     def single_generation(self):
 

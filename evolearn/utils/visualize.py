@@ -32,9 +32,12 @@ class Animation:
         self.interval = 50
         self.blit = True
         self.repeat_delay = 1000
+        self.scale = 2
+
+        self.data = data
 
         self.fig = plt.figure()
-        self.frames = [[plt.imshow(data[:, :, frame], animated=True)] for frame in range(data.shape[2])]
+        self.frames = [[plt.imshow(np.kron(self.data[frame], np.ones((self.scale, self.scale))), animated=True)] for frame in self.data.keys()]
 
     def animate(self):
 
@@ -48,6 +51,13 @@ class Animation:
 
 
 class VisualizeLeader:
+
+    """
+    Visualize leader genotypes and phenotypes using NetworkX drawing functions.
+    
+    Todo:
+        * edit /usr/local/lib/python2.7/dist-packages/networkx/drawing/nx_pylab.py (126-138) to remove depracated pyplot.hold to stop plotting error.
+    """
 
     def __init__(self, sim, num_inputs, num_outputs, NEAT_flavor):
 

@@ -28,32 +28,47 @@ class SimpleEnvironment:
         # -------------------- ENVIRONMENT --------------------
 
         # Environment parameters
-        self.world_size = 100
-        self.world = np.zeros((self.world_size, self.world_size))
+
+        self.world_size = 30
 
         self.walls = False
         self.nutrient_rolling_update = False
 
         # Reward parameters
-        self.variable_nutrients = False
-        self.nutrient_density = .25
+
+        self.variable_nutrients = True
+        self.nutrient_density = .20
 
         self.metabolic_cost = -0.2
 
         self.nutrient_relative_to_cost = 3
         self.nutrient_value = self.nutrient_relative_to_cost * -1 * self.metabolic_cost
 
+        # Build the world
+
+        self.world = self.initialize_environment()
+
         # -------------------- AGENT --------------------
 
-        # Agent parameters
-        self.observation_space = 9
+        # Define Agent object
+
+        self.agent = SimpleAgent(self.world_size)
+
+        # Controller parameters
+
+        self.observation_space = 2 * self.agent.levels_fov ** 2 + self.agent.levels_fov + 1
         self.action_space = 5
 
         # Possible actions in environment
+
         self.actions = self.build_actions()
 
-        # Define Agent object
-        self.agent = SimpleAgent(self.world_size)
+        # -------------------- VISUALIZATION --------------------
+
+        self.agent_relative_to_nutrient = 2
+        self.agent_value = self.agent_relative_to_nutrient * self.nutrient_value
+        self.agent_world = { 0: np.zeros((self.world_size, self.world_size)) }
+
 
     def build_actions(self):
 
@@ -65,6 +80,7 @@ class SimpleEnvironment:
         """
 
         # Position adjustments
+
         empty_position_adjust = [[0, 0], [0, 0], [0, 0], [0, 0]]
 
         # Position adjustments are different depending on if there is a rolling nutrient update or not
@@ -147,21 +163,6 @@ class SimpleEnvironment:
 
         return world
 
-    def make_observation(self):
-        #######################
-        """
-        Making an observation for a single step through environment.
-        """
-
-        return 0
-
-    def move_agent(self, action):
-        #######################
-        """
-        Update agent location based on selected action.
-        """
-        pass
-
     def reformat_action(self, agent_output):
 
         """
@@ -187,11 +188,7 @@ class SimpleEnvironment:
 
         # Initialize your agent
 
-        self.agent.reset()
-
-        # Return an initial observation at the agent's current location
-
-        init_observation = self.make_observation()
+        init_observation = self.agent.reset(self.world)
 
         return init_observation
 
@@ -213,24 +210,38 @@ class SimpleEnvironment:
         :return: next observation, current reward, collision Boolean.
         """
 
-        self.update(action)
+        # Agent performs an action that updates agent.location
 
-        observation = self.make_observation()
+        decision = self.actions[action]
+        self.agent.update(decision)
+
+        # Make  an observation at the current agent.location
+
+        observation = self.agent.observe(self.world)
+
+        # Return the state/reward at the curret agent.location
 
         state = self.return_reward()
 
+        # Check if a collision flag has been raised for the current agent.location
+
         collide = self.collision_check()
+
+        # Update the environment in case any nutrients were consumed
+
+        self.update()
 
         return observation, state, collide
 
-    def update(self, action):
+    def update(self):
 
         """
         Update environment.world with respect possibly consumed nutrients at agent's current location.
         """
 
-        self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
+        # Agent's current location is updated to reflect current agent.location
 
+        self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
 
 class Recognition:
     """
