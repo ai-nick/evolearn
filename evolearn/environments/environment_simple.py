@@ -29,19 +29,19 @@ class SimpleEnvironment:
 
         # Environment parameters
 
-        self.world_size = 30
+        self.world_size = 100
 
         self.walls = False
         self.nutrient_rolling_update = False
 
         # Reward parameters
 
-        self.variable_nutrients = True
-        self.nutrient_density = .20
+        self.variable_nutrients = False
+        self.nutrient_density = .40
 
-        self.metabolic_cost = -0.2
+        self.metabolic_cost = -0.25
 
-        self.nutrient_relative_to_cost = 3
+        self.nutrient_relative_to_cost = 4
         self.nutrient_value = self.nutrient_relative_to_cost * -1 * self.metabolic_cost
 
         # Build the world

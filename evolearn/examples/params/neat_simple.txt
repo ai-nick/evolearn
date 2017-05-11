@@ -24,11 +24,11 @@ environment_type = SimpleEnvironment
 # -------------------- SIMULATION --------------------
 population_size = 300
 max_evaluations = 50
-num_generations = 100
+num_generations = 300
 num_repetitions = 1
 #
 # -------------------- VISUALIZATION --------------------
 verbose = *True
-performance_plotting = *False
+performance_plotting = *True
 visualize_leader = *False
-animate_leader = *True
+animate_leader = *False

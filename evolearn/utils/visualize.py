@@ -22,7 +22,7 @@ class Animation:
 
     `Animation` creates an animation object from an arbitrary 3D array.
 
-    :param data: 3D-array. For example, a single agent's decisions in an environment.
+    :param data: data. Dictionary of individual evaluations
     :type data: np.array
 
     """

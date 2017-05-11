@@ -15,6 +15,7 @@ from evolearn.utils.visualize import VisualizeLeader, Animation
 import MultiNEAT as mneat
 from copy import copy
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class SimulationNEAT:
@@ -81,7 +82,7 @@ class SimulationNEAT:
 
         """
         Constructs an agent phenotype from its genotype.
-        
+
         :param current_genome: agent genome.
         :return: agent phenotype network.
         """
@@ -109,60 +110,7 @@ class SimulationNEAT:
         :return: NEAT Algorithm object instance.
         """
 
-        return getattr(neat, self.neat_flavor)(self.population_size, self.num_inputs, self.num_outputs)
-
-    def evaluate_agent(self, current_genome):
-
-        """
-        Evaluate a single agent phenotype on the current environment.
-        
-        :param current_genome: current agent genome
-        :return: performance measure
-        """
-
-        # -------------------- ENVIRONMENT --------------------
-
-        # Reset environment and retrieve initial observation
-
-        observation = self.env.reset()
-
-        # -------------------- AGENT --------------------
-
-        # Build the agent phenotype
-
-        net = self.build_phenotype(current_genome)
-
-        # -------------------- EVALUATE AGENT --------------------
-
-        # Initialize evaluation loop variables
-
-        collide, evaluation, fitness = False, 0, 0
-
-        # Main Evaluation Loop
-
-        while (not collide) and (evaluation < self.max_evaluations):
-
-            # Single evaluation on current input
-
-            output = self.alg.single_evaluation(net, observation)
-
-            # Convert network output into relevant action in the environment
-
-            action = self.env.reformat_action(output)
-
-            # Return resulting observation, state and collide catch
-
-            observation, state, collide = self.env.step(action)
-
-            # Performance Update
-
-            fitness += state
-
-            # Evaluation Loop Step
-
-            evaluation += 1
-
-        return fitness
+        return getattr(neat, self.neat_flavor)(self.population_size, self.num_inputs, self.num_outputs, self.env, self.max_evaluations)
 
     def evaluate_agent_for_visualization(self, net, test_evaluations):
 
@@ -237,19 +185,63 @@ class SimulationNEAT:
 
             # Main Generation Loop
 
+            max = np.zeros((self.num_generations, ))
+            min = np.zeros((self.num_generations, ))
+            avg = np.zeros((self.num_generations, ))
+            dev = np.zeros((self.num_generations, ))
+            num_species = np.zeros((self.num_generations, ))
+
             for generation in range(self.num_generations):
 
                 if self.verbose:
 
-                    print '     * Generation %d of %d:' % (generation + 1, self.num_generations)
+                    print '\n     * Generation %d of %d:' % (generation + 1, self.num_generations)
 
                 # Perform a single generation
 
-                self.single_generation()
+                stats, species_leaders = self.alg.single_generation()
+
+
+                max[generation], min[generation], avg[generation], dev[generation], num_species[generation] = stats['Max'], stats['Min'], stats['Mean'], stats['STD'], len(species_leaders)
 
                 if self.verbose:
 
-                    print '         > Species: ', self.alg.pop.Species
+                    print '         > Species IDs: '
+
+                    print '             - Generation Stats:', stats
+                    print '             - Species Leaders:', species_leaders
+
+
+
+        # -------------------- PERFORMANCE PLOTTING --------------------
+
+        if self.performance_plotting:
+
+            x = range(self.num_generations)
+
+            # plt.subplot(121)
+            # plt.errorbar(x, avg, yerr=dev)
+            plt.plot(x, avg, 'g', label='Average Fit')
+            plt.plot(x, min, 'b', label='Min Fit')
+            plt.plot(x, max, 'r', label='Max Fit')
+            plt.plot(x, num_species, 'k', label='Number of Species')
+
+            density = self.env.nutrient_density * 100
+
+            title = 'Nut Density %:' + str(density) + ', Variable Nut: ' + str(self.env.variable_nutrients) +', Pop Size:' + str(self.population_size) + ', Max Evals:' + str(self.max_evaluations) + ', Num Gens:' + str(self.num_generations)
+
+            plt.title(title)
+            plt.legend(loc='upper left')
+            plt.xlabel('Generation')
+            plt.ylabel('Performance/Fitness')
+
+            # plt.subplot(122)
+            #
+            # plt.bar(x, num_species)
+            # plt.xlabel('Generation')
+            # plt.ylabel('Number of Species')
+
+            plt.show()
 
         # -------------------- LEADER VISUALIZATION --------------------
 
@@ -276,37 +268,11 @@ class SimulationNEAT:
 
             if self.verbose:
 
-                print '     * Species best performer Fitness in New Simulation:', self.evaluate_agent_for_visualization(net, 10 * self.max_evaluations)
+                print '     * Species best performer Fitness in New Simulation:', self.evaluate_agent_for_visualization(net, 20 * self.max_evaluations)
+
 
             # Animate the thing
 
             leader_viz = Animation(self.leader_world)
             leader_viz.animate()
 
-    def single_generation(self):
-
-        """
-        Single generation of evaluation for a population on an environment. 
-        
-        :return: performance measure (i.e. fitness).
-        """
-
-        # Retrieve a list of all genomes in the population
-
-        genome_list = mneat.GetGenomeList(self.alg.pop)
-
-        # Main Population Evaluation Loop
-
-        for current_genome in genome_list:
-
-            # Evaluate the current genome
-
-            fitness = self.evaluate_agent(current_genome)
-
-            # Reset the current genome's fitness
-
-            current_genome.SetFitness(fitness)
-
-        # Call a new Epoch - runs mutation and crossover, creating offspring
-
-        self.alg.pop.Epoch()

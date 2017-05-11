@@ -194,13 +194,14 @@ class SimpleAgent:
         """
 
         fov_heading = []
-        r = 2 * self.levels_fov + 1
-        th = self.levels_fov * r
-        t = r ** 2
 
-        for l in range(1, self.levels_fov + 1):
+        num_rows = 2 * self.levels_fov + 1
+        cells_per_row = self.levels_fov * num_rows
+        total_cells_in_full_block = num_rows ** 2
 
-            fov_heading += self.heading_row_calc(r, th, t, l)
+        for level in range(1, self.levels_fov + 1):
+
+            fov_heading += self.heading_row_calc(num_rows, cells_per_row, total_cells_in_full_block, level)
 
         return fov_heading
 
