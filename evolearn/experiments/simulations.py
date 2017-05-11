@@ -1,16 +1,16 @@
 
-#######################################################
-#   ____  _      ___   _     ____   __    ___   _     #
-#  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ | #
-#  |_|__  \_\/  \_\_/ |_|__ |_|__ /_/--\ |_| \ |_| \| #
-#                                                     #
-#                  Chad Carlson - 2017                #
-#######################################################
+########################################################
+#   ____  _      ___   _     ____   __    ___   _      #
+#  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ |  #
+#  |_|__  \_\/  \_\_/ |_|__ |_|__ /_/--\ |_| \ |_| \|  #
+#                                                      #
+#                  Chad Carlson - 2017                 #
+########################################################
 
 
 from evolearn.algorithms import neat
 from evolearn.environments import environment_simple
-# from evolearn.utils.visualize import VisualizeLeader
+from evolearn.utils.visualize import VisualizeLeader
 
 import MultiNEAT as mneat
 import numpy as np
@@ -51,58 +51,72 @@ class SimulationNEAT:
     
     """
 
-    def __init__(self, neat_flavor, environment_type='SimpleEnvironment',
-                 population_size=300, max_evaluations=5, num_generations=100,
-                 num_repetitions=1, verbose=True, performance_plotting=False,
-                 visualize_leader=False):
+    # def __init__(self, neat_flavor='NEAT', environment_type='SimpleEnvironment',
+    #              population_size=300, max_evaluations=5, num_generations=100,
+    #              num_repetitions=1, verbose=True, performance_plotting=False,
+    #              visualize_leader=False):
 
-        # -------------------- CONSTANTS --------------------
+    def __init__(self, parameters):
 
-        # constants_file.txt?
-        # Ability to load and read from a constants file for experiment reproduction?
+        # # -------------------- CONSTANTS --------------------
+        #
+        # # Load and read from a constants file for experiment reproduction
+        #
+        # self.params = params
 
-        # -------------------- ENVIRONMENT --------------------
 
-        # Construct the environment the population will be evaluated on
+        self.neat_flavor = parameters['neat_flavor']
+        self.env_type = parameters['environment_type']
+        self.population_size = parameters['population_size']
+        self.max_evaluations = parameters['max_evaluations']
+        self.num_generations = parameters['num_generations']
+        self.num_repetitions = parameters['num_repetitions']
+        self.verbose = parameters['verbose']
+        self.performance_plotting = parameters['performance_plotting']
+        self.visualize_leader = parameters['visualize_leader']
 
-        self.env_type = environment_type
-        self.env = self.define_environment()
-
-        # -------------------- SIMULATION --------------------
-
-        # Population parameters
-
+        # # -------------------- ENVIRONMENT --------------------
+        #
+        # # Construct the environment the population will be evaluated on
+        #
+        # self.env_type = environment_type
+        self.env = self.construct_environment()
+        #
+        # # -------------------- SIMULATION --------------------
+        #
+        # # Population parameters
+        #
         self.num_inputs = self.env.observation_space
         self.num_outputs = self.env.action_space
-        self.population_size = population_size
-
-        # Simulation parameters
-
-        self.max_evaluations = max_evaluations
-        self.num_generations = num_generations
-        self.num_repetitions = num_repetitions
-
-        # Repetition and Generation verbose
-
-        self.verbose = verbose
-
-        # Performance Plotting
-
-        self.performance_plotting = performance_plotting
-
-        # Visualizing Leader Agent Networks at End of Simulation
-
-        self.visualizeLeader = visualize_leader
-
-        # -------------------- ALGORITHM --------------------
-
-        # Define the type of experiment (flavor) you are running
-
-        self.NEAT_flavor = neat_flavor
-
-        # Define the algorithm to fit that flavor
-
-        self.alg = self.define_neat_flavor()
+        # self.population_size = population_size
+        #
+        # # Simulation parameters
+        #
+        # self.max_evaluations = max_evaluations
+        # self.num_generations = num_generations
+        # self.num_repetitions = num_repetitions
+        #
+        # # Repetition and Generation verbose
+        #
+        # self.verbose = verbose
+        #
+        # # Performance Plotting
+        #
+        # self.performance_plotting = performance_plotting
+        #
+        # # Visualizing Leader Agent Networks at End of Simulation
+        #
+        # self.visualizeLeader = visualize_leader
+        #
+        # # -------------------- ALGORITHM --------------------
+        #
+        # # Define the type of experiment (flavor) you are running
+        #
+        # self.NEAT_flavor = neat_flavor
+        #
+        # # Define the algorithm to fit that flavor
+        #
+        self.alg = self.construct_neat_flavor()
 
     def build_phenotype(self, current_genome):
 
@@ -118,17 +132,17 @@ class SimulationNEAT:
 
         return net
 
-    def define_environment(self):
+    def construct_environment(self):
 
         """
         Construct an Environment object from environment_type string.
         
-        :return: Environmne object instance. 
+        :return: Environment object instance. 
         """
 
         return getattr(environment_simple, self.env_type)()
 
-    def define_neat_flavor(self):
+    def construct_neat_flavor(self):
 
         """
         Construct NEAT Algorithm object from neat_flavor string.
@@ -136,9 +150,9 @@ class SimulationNEAT:
         :return: NEAT Algorithm object instance.
         """
 
-        return getattr(neat, self.NEAT_flavor)(self.population_size, self.num_inputs, self.num_outputs)
+        return getattr(neat, self.neat_flavor)(self.population_size, self.num_inputs, self.num_outputs)
 
-    def evaluate(self, current_genome):
+    def evaluate_agent(self, current_genome):
 
         """
         Evaluate a single agent phenotype on the current environment.
@@ -147,26 +161,26 @@ class SimulationNEAT:
         :return: performance measure
         """
 
-        # Initialize fitness
+        # -------------------- ENVIRONMENT --------------------
 
-        fitness = 0
+        # Reset environment and retrieve initial observation
 
-        # Reset agent and environment
+        observation = self.env.reset()
+        current_input = np.append(np.random.rand(self.num_inputs - 1,), [1.0])  # DUMMY INPUT
 
-        self.env.reset()
-
-        # Retrieve initial observation from the environment
-
-        # observation = self.env.observation
-        current_input = np.append(np.random.rand(self.num_inputs - 1,), [1.0])
+        # -------------------- AGENT --------------------
 
         # Build the agent phenotype
 
         net = self.build_phenotype(current_genome)
 
-        # Main Evaluation Loop
+        # -------------------- EVALUATE AGENT --------------------
 
-        collide, evaluation = False, 0
+        # Initialize evaluation loop variables
+
+        collide, evaluation, fitness = False, 0, 0
+
+        # Main Evaluation Loop
 
         while (not collide) and (evaluation < self.max_evaluations):
 
@@ -200,21 +214,21 @@ class SimulationNEAT:
 
         # -------------------- MAIN EXPERIMENT --------------------
 
-        # Main repetition loop
+        # Main Repetition Loop
 
         for repetition in range(self.num_repetitions):
-
-            # Main generation loop
 
             if self.verbose:
 
                 print '- Repetition %d:' % (repetition + 1)
 
+            # Main Generation Loop
+
             for generation in range(self.num_generations):
 
                 if self.verbose:
 
-                    print '     - Generation %d:' % (generation + 1)
+                    print '     - Generation %d of %d:' % (generation + 1, self.num_generations)
 
                 # Perform a single generation
 
@@ -222,12 +236,12 @@ class SimulationNEAT:
 
         # -------------------- LEADER VISUALIZATION --------------------
 
-        # if self.visualizeLeader:
-        #
-        #     if self.verbose:
-        #         'Visualizing Best Performing Agent...'
-        #
-        #     VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.NEAT_flavor)
+        if self.visualize_leader:
+
+            if self.verbose:
+                'Visualizing Best Performing Agent...'
+
+            VisualizeLeader(self.alg, self.num_inputs, self.num_outputs, self.neat_flavor)
 
     def single_generation(self):
 
@@ -247,12 +261,12 @@ class SimulationNEAT:
 
             # Evaluate the current genome
 
-            fitness = self.evaluate(current_genome)
+            fitness = self.evaluate_agent(current_genome)
 
             # Reset the current genome's fitness
 
             current_genome.SetFitness(fitness)
 
-        # Call a new Epoch - runs mutations and crossover, creating the next generation of genomes
+        # Call a new Epoch - runs mutation and crossover, creating offspring
 
         self.alg.pop.Epoch()

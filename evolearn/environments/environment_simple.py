@@ -25,10 +25,14 @@ class SimpleEnvironment:
 
     def __init__(self):
 
+        # -------------------- ENVIRONMENT --------------------
+
         # Environment parameters
         self.world_size = 100
         self.world = np.zeros((self.world_size, self.world_size))
+
         self.walls = False
+        self.nutrient_rolling_update = False
 
         # Reward parameters
         self.variable_nutrients = False
@@ -38,6 +42,8 @@ class SimpleEnvironment:
 
         self.nutrient_relative_to_cost = 3
         self.nutrient_value = self.nutrient_relative_to_cost * -1 * self.metabolic_cost
+
+        # -------------------- AGENT --------------------
 
         # Agent parameters
         self.observation_space = 9
@@ -60,9 +66,25 @@ class SimpleEnvironment:
 
         # Position adjustments
         empty_position_adjust = [[0, 0], [0, 0], [0, 0], [0, 0]]
-        straight = [[-1, 0], [0, 1], [1, 0], [0, -1]]
-        diagonal_right = [[-1, 1], [1, 1], [1, -1], [-1, -1]]
-        diagonal_left = [[-1, -1], [-1, 1], [1, 1], [1, -1]]
+
+        # Position adjustments are different depending on if there is a rolling nutrient update or not
+
+        if self.nutrient_rolling_update:
+
+            # Namely, when the environment 'rolls', the agent can adjust its row, but never its column
+            # Is this necessary? couldn't I just have the agent continuously move across the field without
+            # changing its heading? If not, then this isn't exactly right, since it would also require the
+            # generation of new columns that fit the originally specified nutrient density
+
+            straight = [[-1, 0], [0, 0], [1, 0], [0, 0]]
+            diagonal_right = [[-1, 0], [1, 0], [1, 0], [-1, 0]]
+            diagonal_left = [[-1, 0], [-1, 0], [1, 0], [1, 0]]
+
+        else:
+
+            straight = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+            diagonal_right = [[-1, 1], [1, 1], [1, -1], [-1, -1]]
+            diagonal_left = [[-1, -1], [-1, 1], [1, 1], [1, -1]]
 
         # Build possible actions with position and heading changes
 
@@ -94,13 +116,44 @@ class SimpleEnvironment:
 
         return collide
 
+    def initialize_environment(self):
+
+        """
+        Initialize environment.
+        
+        :return: initialized world
+        """
+
+        # Define a world with a certain nutrient density
+
+        world = np.random.rand(self.world_size, self.world_size)
+        world[world > self.nutrient_density] = 0
+
+        # Inlcude positive rewards
+
+        # Accomodate for variable nutrient values
+
+        if self.variable_nutrients:
+
+            world = self.nutrient_value * ( world / self.nutrient_density )  # normalize for density (and maximum values)
+
+        else:
+
+            world[world > 0] = self.nutrient_value
+
+        # Include negative rewards
+
+        world[world == 0] = self.metabolic_cost
+
+        return world
+
     def make_observation(self):
         #######################
         """
         Making an observation for a single step through environment.
         """
 
-        pass
+        return 0
 
     def move_agent(self, action):
         #######################
@@ -128,23 +181,19 @@ class SimpleEnvironment:
         :return: intial environment observation
         """
 
-        # Define a world with a certain nutrient density
-        self.world = np.random.rand(self.world_size, self.world_size)
-        self.world[self.world > self.nutrient_density] = 0
+        # Re-initialize world
 
-        if self.variable_nutrients:
-            self.world = self.world / self.nutrient_density  # normalize for density (and maximum values)
-        else:
-            self.world[self.world > 0] = self.nutrient_value
-
-        self.world[self.world == 0] = self.metabolic_cost
+        self.world = self.initialize_environment()
 
         # Initialize your agent
+
         self.agent.reset()
 
         # Return an initial observation at the agent's current location
 
-        return self.make_observation()
+        init_observation = self.make_observation()
+
+        return init_observation
 
     def return_reward(self):
 

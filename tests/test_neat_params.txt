@@ -1,0 +1,9 @@
+neat_flavor = NEAT
+environment_type = SimpleEnviroment
+population_size = 300
+max_evaluations = 5
+num_generations = 100
+num_repetitions = 1
+verbose = *True
+performance_plotting = *False
+visualize_leader = *False

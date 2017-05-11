@@ -6,16 +6,17 @@ import os
 import sys
 
 cwd = os.getcwd()
-project_root = os.path.dirname(cwd)
+project_root = os.path.dirname(os.path.dirname(cwd))
 sys.path.insert(0, project_root)
 
 ###################################
 
 
-# ----- TEST SIMULATION -----
+# ----- SIMPLE EXAMPLE SIMULATION -----
 
 from evolearn.examples.params import Parameters
 from evolearn.experiments.simulations import SimulationNEAT
+
 
 # Pull example experiment parameters
 params = Parameters('neat_simple.txt')
