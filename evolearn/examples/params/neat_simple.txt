@@ -1,9 +1,15 @@
+# -------------------- EXPERIMENT --------------------
+experiment_type = NEAT
+# -------------------- ALGORITHM --------------------
 neat_flavor = NEAT
+# -------------------- ENVIRONMENT --------------------
 environment_type = SimpleEnvironment
+# -------------------- SIMULATION --------------------
 population_size = 300
 max_evaluations = 5
 num_generations = 100
 num_repetitions = 1
+# -------------------- VISUALIZATION --------------------
 verbose = *True
 performance_plotting = *False
-visualize_leader = *True
+visualize_leader = *False

@@ -21,22 +21,28 @@ sys.path.insert(0, project_root)
 
 ###################################
 
-
-# ----- SIMPLE EXAMPLE SIMULATION -----
-
 from evolearn.examples.params import Parameters
 from evolearn.experiments.simulations import SimulationNEAT
 
 
-# Pull example experiment parameters
-params = Parameters('neat_simple.txt')
+# ----- TEMPLATE EXPERIMENT -----
 
-# Instantiate a Simulation
-sim = SimulationNEAT(params)
+class Experiment:
 
-# Run it
-sim.run()
+    def __init__(self, parameter_file):
 
+        # Pull example experiment parameters
 
+        self.params = Parameters(parameter_file)
 
+        # Instantiate a Simulation
 
+        if self.params.values['experiment_type'] == 'NEAT':
+
+            # NEAT SIMULATION
+
+            self.sim = SimulationNEAT(self.params)
+
+    def run(self):
+
+        self.sim.run()

@@ -22,100 +22,52 @@ class SimulationNEAT:
     
     Allows user to initialize a NEAT simulation of different 'flavors'.
 
-    :param neat_flavor: NEAT experiment type; direct v. indirect encoding. Options: 'NEAT', 'HyperNEAT', 'ES-HyperNEAT'.
-    :type neat_flavor: string
-    
-    :param environment_type: Options: 'SimpleEnvironment'. (Default='SimpleEnvironment')
-    :type environment_type: string
-
-    :param population_size: number of agents in experiment population. (Default=300)
-    :type population_size: int
-    
-    :param max_evaluations: number of maximum evaluations an agent can have with the environment. (Default=5)
-    :type max_evaluations: int
-    
-    :param num_generations: number of generations of evolution in experiment. (Default=100)
-    :type num_generations: int
-    
-    :param num_repetitions: number of times entire experiment is replicated in a simulation. (Default=1)
-    :type num_repetitions: int
-    
-    :param verbose: option for Generation and Repetition print strings during a simulation. (Default=True)
-    :type verbose: bool
-    
-    :param performance_plotting: option to generate performance plots across simulation. (Default=False)
-    :type performance_plotting: bool
-    
-    :param visualize_leader: option to build a visualization of leading agent in NetworkX. (Default=False)
-    :type visualize_leader: bool
+    :param parameter_values: experiment Parameters object.
     
     """
-
-    # def __init__(self, neat_flavor='NEAT', environment_type='SimpleEnvironment',
-    #              population_size=300, max_evaluations=5, num_generations=100,
-    #              num_repetitions=1, verbose=True, performance_plotting=False,
-    #              visualize_leader=False):
-
     def __init__(self, parameters):
 
-        # # -------------------- CONSTANTS --------------------
-        #
-        # # Load and read from a constants file for experiment reproduction
-        #
-        # self.params = params
+        # -------------------- ENVIRONMENT --------------------
 
+        # Construct the environment the population will be evaluated on
 
-        self.neat_flavor = parameters['neat_flavor']
-        self.env_type = parameters['environment_type']
-        self.population_size = parameters['population_size']
-        self.max_evaluations = parameters['max_evaluations']
-        self.num_generations = parameters['num_generations']
-        self.num_repetitions = parameters['num_repetitions']
-        self.verbose = parameters['verbose']
-        self.performance_plotting = parameters['performance_plotting']
-        self.visualize_leader = parameters['visualize_leader']
-
-        # # -------------------- ENVIRONMENT --------------------
-        #
-        # # Construct the environment the population will be evaluated on
-        #
-        # self.env_type = environment_type
+        self.env_type = parameters.values['environment_type']
         self.env = self.construct_environment()
-        #
-        # # -------------------- SIMULATION --------------------
-        #
-        # # Population parameters
-        #
+
+        # -------------------- SIMULATION --------------------
+
+        # Population parameters
+
         self.num_inputs = self.env.observation_space
         self.num_outputs = self.env.action_space
-        # self.population_size = population_size
-        #
-        # # Simulation parameters
-        #
-        # self.max_evaluations = max_evaluations
-        # self.num_generations = num_generations
-        # self.num_repetitions = num_repetitions
-        #
-        # # Repetition and Generation verbose
-        #
-        # self.verbose = verbose
-        #
-        # # Performance Plotting
-        #
-        # self.performance_plotting = performance_plotting
-        #
-        # # Visualizing Leader Agent Networks at End of Simulation
-        #
-        # self.visualizeLeader = visualize_leader
-        #
-        # # -------------------- ALGORITHM --------------------
-        #
-        # # Define the type of experiment (flavor) you are running
-        #
-        # self.NEAT_flavor = neat_flavor
-        #
-        # # Define the algorithm to fit that flavor
-        #
+        self.population_size = parameters.values['population_size']
+
+        # Simulation parameters
+
+        self.max_evaluations = parameters.values['max_evaluations']
+        self.num_generations = parameters.values['num_generations']
+        self.num_repetitions = parameters.values['num_repetitions']
+
+        # Repetition and Generation verbose
+
+        self.verbose = parameters.values['verbose']
+
+        # Performance Plotting
+
+        self.performance_plotting = parameters.values['performance_plotting']
+
+        # Visualizing Leader Agent Networks at End of Simulation
+
+        self.visualize_leader = parameters.values['visualize_leader']
+
+        # -------------------- ALGORITHM --------------------
+
+        # Define the type of experiment (flavor) you are running
+
+        self.neat_flavor = parameters.values['neat_flavor']
+
+        # Define the algorithm to fit that flavor
+
         self.alg = self.construct_neat_flavor()
 
     def build_phenotype(self, current_genome):
