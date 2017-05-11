@@ -14,9 +14,17 @@ sys.path.insert(0, project_root)
 from evolearn.examples.simulator import Experiment
 
 
+# # Define the experiment with a parameter file
+#
+# exp = Experiment('neat_simple.txt')
+#
+# # Run the experiment
+#
+# exp.run()
+
 # Define the experiment with a parameter file
 
-exp = Experiment('neat_simple.txt')
+exp = Experiment('hyperneat_simple.txt')
 
 # Run the experiment
 

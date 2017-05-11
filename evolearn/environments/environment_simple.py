@@ -37,7 +37,7 @@ class SimpleEnvironment:
         # Reward parameters
 
         self.variable_nutrients = False
-        self.nutrient_density = .40
+        self.nutrient_density = .25
 
         self.metabolic_cost = -0.25
 

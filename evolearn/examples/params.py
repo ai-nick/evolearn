@@ -93,7 +93,14 @@ class Parameters:
 
         elif self.check_if_int_string(val[0]):
 
-            new_value = int(val)
+            try:
+
+
+                new_value = int(val)
+
+            except:
+
+                new_value = float(val)
 
         # Else string
 

@@ -22,9 +22,9 @@ neat_flavor = NEAT
 environment_type = SimpleEnvironment
 #
 # -------------------- SIMULATION --------------------
-population_size = 300
+population_size = 200
 max_evaluations = 50
-num_generations = 30
+num_generations = 100
 num_repetitions = 1
 #
 # -------------------- VISUALIZATION --------------------

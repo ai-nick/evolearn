@@ -16,7 +16,7 @@
 experiment_type = NEAT
 #
 # -------------------- ALGORITHM --------------------
-neat_flavor = NEAT
+neat_flavor = HyperNEAT
 #
 # -------------------- ENVIRONMENT --------------------
 environment_type = SimpleEnvironment

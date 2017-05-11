@@ -35,3 +35,6 @@ class Substrate:
             pass
 
         return substrate
+#
+# sub = Substrate('simple')
+# print sub.substrate[0]
