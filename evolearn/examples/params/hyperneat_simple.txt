@@ -22,9 +22,9 @@ neat_flavor = HyperNEAT
 environment_type = SimpleEnvironment
 #
 # -------------------- SIMULATION --------------------
-population_size = 300
+population_size = 200
 max_evaluations = 50
-num_generations = 300
+num_generations = 100
 num_repetitions = 1
 #
 # -------------------- VISUALIZATION --------------------
@@ -40,9 +40,9 @@ substrate.m_allow_looped_hidden_links = False
 substrate.m_allow_looped_output_links = False
 #
 substrate.m_allow_input_hidden_links = True
-substrate.m_allow_input_output_links = False
+substrate.m_allow_input_output_links = True
 substrate.m_allow_hidden_output_links = True
-substrate.m_allow_hidden_hidden_links = False
+substrate.m_allow_hidden_hidden_links = True
 #
 substrate.m_hidden_nodes_activation = NEAT.ActivationFunction.SIGNED_SIGMOID
 substrate.m_output_nodes_activation = NEAT.ActivationFunction.UNSIGNED_SIGMOID

@@ -34,11 +34,10 @@ class HyperNEAT:
         self.env = environment
         self.max_evaluations = max_evaluations
 
-        self.substrate_type = 'simple'
+        self.substrate_type = '10x10'
         sub = Substrate(self.substrate_type)
-        # print sub.substrate
-        # unpacking this is odd - is there a way to make this more systematic?
-        self.substrate = mneat.Substrate(sub.substrate[0], sub.substrate[1], sub.substrate[2])
+
+        self.substrate = mneat.Substrate(sub.substrate_input, sub.substrate_hidden, sub.substrate_output)
 
         self.substrate.m_allow_output_hidden_links = False
         self.substrate.m_allow_output_output_links = False
@@ -56,6 +55,8 @@ class HyperNEAT:
         self.substrate.m_with_distance = True
         #
         self.substrate.m_max_weight_and_bias = 8.0
+
+
 
         self.params = mneat.Parameters()
 
