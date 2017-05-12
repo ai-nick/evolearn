@@ -11,6 +11,7 @@
 #   evolearn.                                          #
 #                                                      #
 ########################################################
+discover = GotPackageParams
 #
 # -------------------- EXPERIMENT --------------------
 experiment_type = NEAT

@@ -14,6 +14,8 @@ import itertools
 import matplotlib.pyplot as plt
 import time
 
+__all__ = [ 'NEAT', 'HyperNEAT', 'ESHyperNEAT' ]
+
 class ESHyperNEAT:
 
     def __init__(self):

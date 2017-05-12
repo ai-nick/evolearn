@@ -9,7 +9,8 @@
 
 
 import pkg_resources
-
+import os
+from pathlib2 import Path
 
 class Parameters:
 
@@ -18,17 +19,45 @@ class Parameters:
     
     `Parameters` pulls from a specified .txt and saves variables in a dictionary to be used by a Simulation object.
     
-    Todo:
-        * Allow handling filepaths of arbitrary location specified by user (os.path.join()?).
     """
 
     def __init__(self, filename):
 
         # Define data path to the specified parameters file
-        self.DATA_PATH = pkg_resources.resource_filename('evolearn.examples', 'params/' + filename)
+        self.DATA_PATH = self.define_data_path(filename)
 
         # Callable dictionary of parameters to be passed
         self.values = self.params_txt_to_dict()
+
+    def define_data_path(self, filename):
+
+        # Check if the parameters file comes from the package examples
+
+        if pkg_resources.resource_exists('evolearn.examples', 'params/' + filename):
+
+            data_path = pkg_resources.resource_filename('evolearn.examples', 'params/' + filename)
+
+        else:
+
+            cwd = os.getcwd()
+            dp_cwd_check = os.path.dirname(cwd) + '/' + filename
+            check_path = Path(dp_cwd_check)
+
+            # Check if the file exists in the current directory
+
+            if check_path.exists():
+
+                data_path = dp_cwd_check
+
+            # Assume full path is specified.
+
+            else:
+
+                data_path = filename
+
+        return data_path
+
+
 
     def params_txt_to_dict(self):
 

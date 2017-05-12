@@ -8,8 +8,9 @@
 ########################################################
 
 
-from evolearn.algorithms import neat
+from evolearn import algorithms
 from evolearn import environments
+
 from evolearn.utils.visualize import VisualizeLeader, Animation
 
 import MultiNEAT as mneat
@@ -108,7 +109,7 @@ class SimulationNEAT:
         :return: NEAT Algorithm object instance.
         """
 
-        return getattr(neat, self.neat_flavor)(self.population_size, self.num_inputs, self.num_outputs, self.env, self.max_evaluations)
+        return getattr(algorithms, self.neat_flavor)(self.population_size, self.num_inputs, self.num_outputs, self.env, self.max_evaluations)
 
     def evaluate_agent_for_visualization(self, net, test_evaluations):
 
