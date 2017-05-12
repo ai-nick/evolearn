@@ -1,4 +1,3 @@
-
 ########################################################
 #   ____  _      ___   _     ____   __    ___   _      #
 #  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ |  #
@@ -8,12 +7,16 @@
 ########################################################
 
 
-from evolearn.controllers.controller_simple import SimpleAgent
+from evolearn.controllers import SimpleAgent
+
+
+__all__ = [ 'NutrientSquare', 'Recognition' ]
+
 
 import numpy as np
 
 
-class SimpleEnvironment:
+class NutrientSquare:
 
     """
     Simple wrapped callable nutrient environment.
@@ -67,15 +70,14 @@ class SimpleEnvironment:
 
         self.agent_relative_to_nutrient = 2
         self.agent_value = self.agent_relative_to_nutrient * self.nutrient_value
-        self.agent_world = { 0: np.zeros((self.world_size, self.world_size)) }
-
+        self.agent_world = {0: np.zeros((self.world_size, self.world_size))}
 
     def build_actions(self):
 
         """
         Builds an accessible dictionary of possible actions to be called with each agent action to provide adjustments
         for location and heading adjustments. 
-        
+
         :return: environment action dict. Indices define position and heading adjustments for a selected action.
         """
 
@@ -127,7 +129,6 @@ class SimpleEnvironment:
         if self.walls:
 
             if self.world[self.agent.location[0], self.agent.location[1]] > self.nutrient_value:
-
                 collide = True
 
         return collide
@@ -136,7 +137,7 @@ class SimpleEnvironment:
 
         """
         Initialize environment.
-        
+
         :return: initialized world
         """
 
@@ -151,7 +152,7 @@ class SimpleEnvironment:
 
         if self.variable_nutrients:
 
-            world = self.nutrient_value * ( world / self.nutrient_density )  # normalize for density (and maximum values)
+            world = self.nutrient_value * (world / self.nutrient_density)  # normalize for density (and maximum values)
 
         else:
 
@@ -206,7 +207,7 @@ class SimpleEnvironment:
 
         """
         Making a single step through the environment. 
-        
+
         :return: next observation, current reward, collision Boolean.
         """
 
@@ -242,6 +243,7 @@ class SimpleEnvironment:
         # Agent's current location is updated to reflect current agent.location
 
         self.world[self.agent.location[0], self.agent.location[1]] = self.metabolic_cost
+
 
 class Recognition:
     """

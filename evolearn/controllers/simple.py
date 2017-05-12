@@ -1,4 +1,3 @@
-
 ########################################################
 #   ____  _      ___   _     ____   __    ___   _      #
 #  | |_  \ \  / / / \ | |   | |_   / /\  | |_) | |\ |  #
@@ -12,8 +11,10 @@ import itertools
 import numpy as np
 
 
-class SimpleAgent:
+__all__ = [ 'SimpleAgent' ]
 
+
+class SimpleAgent:
     """
     Simple agent object for interacting with Simple Wrapping Environments.
     """
@@ -64,7 +65,7 @@ class SimpleAgent:
 
     def init_heading(self, tag):
 
-        tag_convert = { 'up': 0, 'right': 1, 'down': 2, 'left': 3 }
+        tag_convert = {'up': 0, 'right': 1, 'down': 2, 'left': 3}
         random_indices = range(len(tag_convert))
 
         if tag == 'random':
@@ -96,9 +97,6 @@ class SimpleAgent:
 
         return heading
 
-
-
-
     def enforce_wrapping(self, position):
         """
         Update a world coordinate to ensure that currently inaccessible location can be accessed when called.
@@ -124,7 +122,6 @@ class SimpleAgent:
         """
 
         if any([self.check_wrapping(coord) for coord in self.location]):
-
             self.location[0] = self.enforce_wrapping(self.location[0])
             self.location[1] = self.enforce_wrapping(self.location[1])
 
@@ -143,15 +140,11 @@ class SimpleAgent:
 
         return output
 
-
-
-
-
     def define_fov(self, world):
 
         """
         Defines the agent's field-of-vision at current location and heading
-        
+
         :param world: current environment
         :return: observation 
         """
@@ -161,19 +154,11 @@ class SimpleAgent:
 
         fov = list(itertools.product(rows, cols))
 
-
-
         fov = [(self.enforce_wrapping(i), self.enforce_wrapping(j)) for i, j in fov]
-
-
-
 
         fov_heading = self.define_fov_heading()
 
         final_fov = [fov[i] for i in fov_heading]
-
-
-
 
         # observation = np.array([world[point[0], point[1]] for point in final_fov])  # turn into array. add bias here.
 
@@ -189,7 +174,7 @@ class SimpleAgent:
 
         """
         Defines the structure of an agent's field-of-vision
-        
+
         :return: FOV_heading 
         """
 
@@ -200,7 +185,6 @@ class SimpleAgent:
         total_cells_in_full_block = num_rows ** 2
 
         for level in range(1, self.levels_fov + 1):
-
             fov_heading += self.heading_row_calc(num_rows, cells_per_row, total_cells_in_full_block, level)
 
         return fov_heading
@@ -209,11 +193,11 @@ class SimpleAgent:
 
         """
         Calculates location indices for individual cells in a row of an agent's field-of-view.
-        
+
         Todo:
             * Flush out input parameters definitions.
             * Rename input parameters to more readable ones.
-            
+
         :return output: 
         """
 
@@ -235,9 +219,6 @@ class SimpleAgent:
 
         return output
 
-
-
-
     def reset(self, world):
 
         """
@@ -256,21 +237,19 @@ class SimpleAgent:
 
     def observe(self, world):
 
-
         return self.define_fov(world)
-
 
     def update(self, decision):
 
         """
         Agent location and heading is updated based on its decision to move.
-        
+
         :param decision: includes decision['heading_adjust'] and decision['position_adjust']
         :type decision: dict
         """
 
         # Update heading
-        self.heading = self.cyclical_heading( self.heading + decision['heading_adjust'] )
+        self.heading = self.cyclical_heading(self.heading + decision['heading_adjust'])
 
         # Update location
         self.location[0] = self.location[0] + decision['position_adjust'][self.heading][0]

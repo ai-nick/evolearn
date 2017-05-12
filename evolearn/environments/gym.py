@@ -1,3 +1,8 @@
+
+
+__all__ = [ 'FlappyBird', 'BalancingPole' ]
+
+
 class FlappyBird:
 
     """FlappyBird test class

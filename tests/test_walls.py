@@ -1,3 +1,4 @@
+
 ###################################
 # ----- Update path for test -----#
 ###################################
@@ -11,12 +12,8 @@ sys.path.insert(0, project_root)
 
 ###################################
 
+from evolearn.environments import WalledEnvironment
 
-# ----- TEST CONTROLLER -----
+env = WalledEnvironment()
+env.show()
 
-from evolearn.environments.environment_simple import SimpleEnvironment
-
-env = SimpleEnvironment()
-
-env.reset()
-print env.agent.location

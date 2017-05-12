@@ -9,13 +9,11 @@
 
 
 from evolearn.algorithms import neat
-from evolearn.environments import environment_simple
+from evolearn import environments
 from evolearn.utils.visualize import VisualizeLeader, Animation
 
 import MultiNEAT as mneat
 from copy import copy
-import numpy as np
-import matplotlib.pyplot as plt
 
 
 class SimulationNEAT:
@@ -100,7 +98,7 @@ class SimulationNEAT:
         :return: Environment object instance. 
         """
 
-        return getattr(environment_simple, self.env_type)()
+        return getattr(environments, self.env_type)()
 
     def construct_neat_flavor(self):
 

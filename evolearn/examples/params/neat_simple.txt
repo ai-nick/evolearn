@@ -19,7 +19,7 @@ experiment_type = NEAT
 neat_flavor = NEAT
 #
 # -------------------- ENVIRONMENT --------------------
-environment_type = SimpleEnvironment
+environment_type = NutrientSquare
 #
 # -------------------- SIMULATION --------------------
 population_size = 200
