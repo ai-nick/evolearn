@@ -12,6 +12,9 @@ import pkg_resources
 import os
 from pathlib2 import Path
 
+
+__all__ = [ 'Parameters' ]
+
 class Parameters:
 
     """
@@ -19,6 +22,8 @@ class Parameters:
     
     `Parameters` pulls from a specified .txt and saves variables in a dictionary to be used by a Simulation object.
     
+    Todo:
+        * Handling full imports so individual parameters can be updated but not explicitly defined in NEAT (or other) module
     """
 
     def __init__(self, filename):
@@ -33,9 +38,9 @@ class Parameters:
 
         # Check if the parameters file comes from the package examples
 
-        if pkg_resources.resource_exists('evolearn.examples', 'params/' + filename):
+        if pkg_resources.resource_exists('evolearn.experiments', 'examples/' + filename):
 
-            data_path = pkg_resources.resource_filename('evolearn.examples', 'params/' + filename)
+            data_path = pkg_resources.resource_filename('evolearn.experiments', 'examples/' + filename)
 
         else:
 
@@ -56,8 +61,6 @@ class Parameters:
                 data_path = filename
 
         return data_path
-
-
 
     def params_txt_to_dict(self):
 

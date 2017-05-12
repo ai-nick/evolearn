@@ -8,13 +8,38 @@
 ########################################################
 
 
+from params import Parameters
 from evolearn import algorithms
 from evolearn import environments
 
-from evolearn.utils.visualize import VisualizeLeader, Animation
-
 import MultiNEAT as mneat
 from copy import copy
+
+__all__ = [ 'Experiment', 'SimulationNEAT' ]
+
+
+# ----- TEMPLATE EXPERIMENT -----
+
+class Experiment:
+
+    def __init__(self, parameter_file):
+
+        # Pull example experiment parameters
+
+        self.params = Parameters(parameter_file)
+
+        # Instantiate a Simulation
+
+        if self.params.values['experiment_type'] == 'NEAT':
+
+            # NEAT SIMULATION
+
+            self.sim = SimulationNEAT(self.params)
+
+    def run(self):
+
+        self.sim.run()
+
 
 
 class SimulationNEAT:
