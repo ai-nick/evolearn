@@ -1,5 +1,5 @@
 '''
-Repeat Texture on Resize - Could be used for picbreeder
+Repeat Texture on Resize - Could be used for PicBreeder
 ========================
 
 This examples repeats the letter 'K' (mtexture1.png) 64 times in a window.

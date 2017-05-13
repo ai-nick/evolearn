@@ -28,12 +28,11 @@ evolearn is a python neuroevolution framework.
 Features
 --------
 
-* CPPN Genome Generation
-* Execution of HyperNEAT
-* User-defined substrate resolutions
-* Evolutionary substrates
-* Simple Nutrient Environment interaction
-* Visualization
+* Execution of NEAT, HyperNEAT, ES-HyperNEAT and their adaptive variations
+* Custom Environments
+* OpenAI Gym Environment Integrations
+* Genotype and Phenotype Visualizations (NetworkX)
+* PicBreeder Implementation (requires Kivy)
 
 
 Dependencies
@@ -41,6 +40,7 @@ Dependencies
 
 * MultiNEAT
 * NetworkX
+* Kivy
 * TensorFlow
 * OpenAI Universe
 

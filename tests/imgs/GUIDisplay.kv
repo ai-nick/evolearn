@@ -1,0 +1,62 @@
+<RootWidget>:
+    # menu bar
+    id: toolbars
+    ActionBar:
+        pos_hint: {'top':1}
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                text: ''
+                title: 'Turing App'
+                with_previous: False
+            ActionGroup:
+                text: 'File'
+                mode: 'spinner'
+                size_hint_x: None
+                width: 90
+                ActionButton:
+                    text: 'New'
+                    on_press: root.actionbuttonpress()
+                ActionButton:
+                    text: 'Open'
+                ActionButton:
+                    text: 'Save'
+                ActionButton:
+                    text: 'Save As'
+                ActionButton:
+                    text: 'Quit'
+            ActionGroup:
+                text: 'Play'
+                mode: 'spinner'
+                size_hint_x: None
+                width: 90
+                ActionButton:
+                    text: 'Play to End'
+
+    # tool bar
+    BoxLayout:
+
+        BoxLayout:
+            y: 10.0
+            x: 10.0
+            height: 400.0
+            width: 80.0
+            size_hint_y: 0.9
+            size_hint_x: 0.08
+            orientation: 'vertical'
+            opacity: 0.5
+            Button:
+                text: 'Select'
+            Button:
+                text: 'Add State'
+            Button:
+                text: 'Modify State'
+            Button:
+                on_release: root.add_transition_toggle()
+                on_press: pass
+                text: 'Add Transition'
+            Button:
+                text: 'Tape'
+                on_release: root.change_tape()
+        Label:
+            text: 'Stage Area'
