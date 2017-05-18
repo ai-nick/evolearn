@@ -16,7 +16,7 @@ from evolearn.experiments import Experiment
 
 # Define the experiment with a parameter file
 
-exp = Experiment('cwd_params.txt')
+exp = Experiment('neat_simple.txt')
 
 # Run the experiment
 

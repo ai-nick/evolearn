@@ -36,7 +36,7 @@ class HyperNEAT:
         self.env = environment
         self.max_evaluations = max_evaluations
 
-        self.substrate_type = '10x10'
+        self.substrate_type = '5x5'
         sub = Substrate(self.substrate_type)
 
         self.substrate = mneat.Substrate(sub.substrate_input, sub.substrate_hidden, sub.substrate_output)
@@ -47,9 +47,9 @@ class HyperNEAT:
         self.substrate.m_allow_looped_output_links = False
         #
         self.substrate.m_allow_input_hidden_links = True
-        self.substrate.m_allow_input_output_links = False
+        self.substrate.m_allow_input_output_links = True
         self.substrate.m_allow_hidden_output_links = True
-        self.substrate.m_allow_hidden_hidden_links = False
+        self.substrate.m_allow_hidden_hidden_links = True
         #
         self.substrate.m_hidden_nodes_activation = mneat.ActivationFunction.SIGNED_SIGMOID
         self.substrate.m_output_nodes_activation = mneat.ActivationFunction.UNSIGNED_SIGMOID

@@ -1,4 +1,6 @@
 
+import pkg_resources as pkg
+
 __all__ = [ 'MenuBuilder' ]
 
 class MenuBuilder:
@@ -23,7 +25,7 @@ class MenuBuilder:
         # self.return_string += '''\n    Button\n        background_normal: 'child0.jpg'\n        on_press: root.parent.parent.load_slide(root.parent.parent.slides[1]) '''
 
         # Center Application Title
-        self.return_string += '''\n    Label:\n        text: 'PicBreeder Interactive Evolution' '''
+        self.return_string += '''\n    Label:\n        text: str(app.title) '''
 
         # Visualize Start from Seed Example CPPN
         self.return_string += '''\n    Label:\n        text: '' '''
@@ -37,8 +39,8 @@ class MenuBuilder:
         self.return_string += '''\n    Label:\n        text: '' '''
 
         # Start from Seed Button
-        # self.return_string += '''\n    Button\n        text: 'Start from Saved Parent Seed' '''
-        self.return_string += '''\n    Button\n        text: 'Start from Saved Parent Seed'\n        on_press: root.parent.parent.load_slide(root.parent.parent.slides[2]) '''
+        self.return_string += '''\n    Button\n        text: 'Start from Saved Parent Seed' '''
+        # self.return_string += '''\n    Button\n        text: 'Start from Saved Parent Seed'\n        on_press: root.parent.parent.load_slide(root.parent.parent.slides[2]) '''
 
         self.return_string += '''\n    Label:\n        text: '' '''
         # self.return_string += '''\n    Button\n        background_normal: 'child0.jpg'\n        on_press: root.parent.parent.load_slide(root.parent.parent.slides[1]) '''
@@ -68,10 +70,11 @@ class SelectMultipleBuilder:
     def build_navigation_bar(self):
 
         # Back To Menu Button
-        self.return_string += '''\n    Button\n        text: '< BACK'\n        on_press: app.root.load_slide(app.root.slides[0]) '''
+        self.return_string += '''\n    Button\n        text: '< BACK'\n        on_press: root.parent.parent.load_slide(root.parent.parent.slides[0]) '''
 
         # Clear selections Button
-        self.return_string += '''\n    Button\n        text: 'CLEAR'\n        on_press: root.clear_selections() '''
+        self.return_string += '''\n    Button\n        text: 'CLEAR' '''
+        # self.return_string += '''\n    Button\n        text: 'CLEAR'\n        on_press: root.clear_selections() '''
 
         # Current Parent Dummy Button
         self.return_string += '''\n    Button\n        text: 'Current Parent' '''
@@ -106,14 +109,10 @@ class SelectSingleBuilder:
         self.num_cols = 5
         self.spacing = 10
         self.num_options = 20
-        self.height = 128
-        self.size_hint_y = None
 
         self.return_string = self.init_string()
 
         self.build_navigation_bar()
-
-        self.build()
 
     def init_string(self):
         return '''\n<SelectSingle>:\n    cols: %d\n    spacing: %d''' % (self.num_cols, self.spacing)
@@ -138,21 +137,3 @@ class SelectSingleBuilder:
         # Dynamic Evolve/Advance Button
         self.return_string += '''\n    Button\n        text: 'EVOLVE >' '''
         # self.return_string += '''\n    Button\n        text: str(app.check_app_access(root.selected, root.limits))\n        on_press: app.wrap_up(root.selected, root.limits) '''
-
-    def build(self):
-
-        # Potential parent buttons
-
-        for button in range(self.num_options):
-
-            header = '''\n    Button'''
-            label = '''\n        label: %d''' % (button, )
-            img_normal = '''\n        background_normal: 'kiwi.jpg' '''
-            size_hint_y = '''\n        size_hint_y: None'''
-            # height = '''\n        height: self.minimum_height''' #% (self.height, )
-            # img_press = '''\n        background_normal: app.pressed_define(self.label) if self.label in root.select_breed'''
-            # img_normal = ''' else app.normal_define(self.label)'''
-            # press_action = '''\n        on_press: root.return_id(self)'''
-
-            # self.return_string += header + label + img_press + img_normal + press_action
-            self.return_string += header + label + img_normal + size_hint_y #+ height

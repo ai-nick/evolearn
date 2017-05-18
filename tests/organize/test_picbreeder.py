@@ -1,3 +1,4 @@
+
 ###################################
 # ----- Update path for test -----#
 ###################################
@@ -12,9 +13,15 @@ sys.path.insert(0, project_root)
 ###################################
 
 from evolearn.applications import PicBreeder
+from evolearn.applications.interactive_evolution.kv_builder import SelectMultipleBuilder
 
+# # Build the PicBreeder Application
+#
+pb = PicBreeder()
 
-if __name__ == '__main__':
+# Run the Application
 
-    pb = PicBreeder
-    pb.run()
+pb.run()
+#
+# sm = SelectMultipleBuilder()
+# print sm.return_string

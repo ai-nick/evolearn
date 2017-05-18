@@ -1,53 +1,114 @@
 
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.properties import ListProperty
 from kivy.uix.carousel import Carousel
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import ListProperty
+from kivy.uix.scrollview import ScrollView
+from kivy.core.window import Window
+from kivy.uix.button import Button
+
 
 import glob
 
-from .kv_builder import MenuBuilder, SelectMultipleBuilder
+from kv_builder import MenuBuilder, SelectMultipleBuilder, SelectSingleBuilder
 
+__all__ = ['PicBreeder']
 
-__all__ = ['PicBreeder', 'Menu', 'SelectMultiple']
 
 menu = MenuBuilder()
-selection = SelectMultipleBuilder()
+select_from_scratch = SelectMultipleBuilder()
+select_from_seed = SelectSingleBuilder()
 
-Builder.load_string(menu.return_string + selection.return_string)
+Builder.load_string(menu.return_string + select_from_scratch.return_string + select_from_seed.return_string)
 
 class PicBreeder(App):
+
+    location_saved_seeds = '/home/chad/Documents/research/evolearn/evolearn/applications/interactive_evolution/saved_seeds/'
+    location_scratch_seeds = '/home/chad/Documents/research/evolearn/evolearn/applications/interactive_evolution/scratch_seeds/'
+
+    normal_images = 'imgs/normal/'
+    pressed_images = 'imgs/pressed/'
+
+    title = 'PicBreeder'
+    num_columns = 4
+    spacing = 10
+
+    selected_from_scratch = ListProperty([])
+    selected_from_seeds = ListProperty([])
+    saved_parents = ListProperty([])
 
     def build(self):
 
         self.images_normal, self.images_pressed = self.init_images()
 
-        self.title = 'PicBreeder Interactive Evolution'
+        # Start (multiple) from Scratch Page
+        scratch_layout = SelectMultiple()
+        scratch_layout.bind(minimum_height=scratch_layout.setter('height'))
+        scratch_scroll = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
+        scratch_scroll.add_widget(scratch_layout)
 
-        self.selected_parents = ListProperty([])
-        self.saved_parents = ListProperty([])
+        # Select (Single) from Seed Pages
+        seed_grid = GridLayout(cols=self.num_columns, spacing=self.spacing, size_hint_y=None)
+        seed_grid.bind(minimum_height=seed_grid.setter('height'))
 
+        for j in range(30):
+
+            if j > self.num_columns - 1:
+
+                btn = Button(label=j, size_hint_y=None, height=128)
+
+                btn.background_normal = self.load_saved_parent_image(btn.label)
+
+            else:
+
+                btn = Button(text='MENU', size_hint_y=None, height=50)
+
+            # btn.on_press = self.add_saved_parent_to_selected(btn.label)
+
+            seed_grid.add_widget(btn)
+
+        seed_scroll = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
+        seed_scroll.add_widget(seed_grid)
+
+        # Define the root application
         root = Carousel()
-
-        # Menu page
         root.add_widget(Menu())
-
-        # Selection page
-        root.add_widget(SelectMultiple())
+        root.add_widget(scratch_scroll)
+        root.add_widget(seed_scroll)
 
         return root
+
+    def add_saved_parent_to_selected(self, id):
+
+        # print self.selected_from_seeds
+
+        if self.selected_from_seeds:
+
+            if id in self.selected_from_seeds:
+                self.selected_from_seeds.remove(id)
+            else:
+                self.selected_from_seeds.append(id)
+
+
+    def load_saved_parent_image(self, id):
+
+        image_string_normal = self.location_saved_seeds + self.normal_images + 'parent' + str(id - id) + '.jpg'
+        image_string_pressed = self.location_saved_seeds + self.pressed_images + 'parent' + str(id - id) + 'press.jpg'
+        image_string = '''''' + image_string_pressed + ''' if ''' + str(id) + ''' in self.selected_from_seeds else ''' + image_string_normal + ''''''
+
+        return image_string
 
     def init_images(self):
 
         # These paths should be more general for the current users sys path. These folders will need to be generated each time app is run.
-        normal_location = '/home/chad/Documents/research/evolearn/evolearn/applications/interactive_evolution/imgs/normal/*.jpg'
+        normal_location = self.location_scratch_seeds + self.normal_images  + '*.jpg'
         image_normal_list = []
 
         for filename in glob.glob(normal_location):
             image_normal_list.append(filename)
 
-        pressed_location = '/home/chad/Documents/research/evolearn/evolearn/applications/interactive_evolution/imgs/pressed/*.jpg'
+        pressed_location = self.location_scratch_seeds + self.pressed_images + '*.jpg'
         image_pressed_list = []
 
         for filename in glob.glob(pressed_location):
@@ -90,53 +151,5 @@ class SelectMultiple(GridLayout):
         self.select_breed = []
 
 
-# class TestApp(App):
-#
-#     selected = ListProperty([])
-#     saved_parents = ListProperty([])
-#
-#     def build(self):
-#         self.title = 'PicBreeder Interactive Evolution'
-#         root = Carousel()
-#
-#         # Menu page
-#         root.add_widget(Menu()) # 0
-#
-#         # Start from scratch page - One way to keep scratch and seeds separate would be to
-#         #   have one as odd indices and the other as the even (just remember the menu is = slide[0])
-#
-#         # OR, alternatively, should the best solution be to launch a separate app for each, with its own numbering?
-#
-#         # ALTHOUGH, if it is truly functional, the only difference between a SCRATCH and SEED trajectory should be the definition of those images.
-#         #   Therfore, it could instead be numbered [0]-menu, [1-x]: saved seeds, [x+1:]: interactive evolution based on selected seed (SCRATCH or SAVED)
-#
-#         root.add_widget(Page()) # 1
-#
-#         for seeds in range(3):
-#
-#             # Start from saved seed page
-#             root.add_widget(Seeds()) # 2, 3, 4
-#
-#         return root
-#
-#     def wrap_up(self, selected, limits):
-#
-#         if len(selected) >= limits[0] and len(selected) <= limits[1]:
-#
-#             self.selected = selected
-#             self.stop()
-#
-#     def check_app_access(self, selected, limits):
-#         if len(selected) < limits[0]:
-#             output = 'Add parents (min %d)' % (limits[0],)
-#         elif len(selected) > limits[1]:
-#             output = 'Too many (max %d)' % (limits[1], )
-#         else:
-#             output = 'EVOLVE >'
-#         return output
-#
-#     def save_parents(self, selected, limits):
-#
-#         if len(selected) >= limits[0] and len(selected) <= limits[1]:
-#
-#             self.saved_parents = selected
+pb = PicBreeder()
+pb.run()

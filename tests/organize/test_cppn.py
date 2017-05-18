@@ -12,7 +12,6 @@ sys.path.insert(0, project_root)
 
 from evolearn.algorithms.neat import NEAT
 import MultiNEAT as mneat
-from viz import Draw
 import numpy as np
 import matplotlib.pyplot as plt
 
